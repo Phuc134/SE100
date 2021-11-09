@@ -1,0 +1,126 @@
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title">Products</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <a href="javascript:void(0);" class="btn btn-danger mb-2"><i
+                                    class="mdi mdi-plus-circle me-2"></i> Add Products</a>
+                        </div>
+
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">
+                            Display
+                            <Select class="form-select" style="width: auto;display:inline-block;">
+                                <option value="">ALL</option>
+                                <option value="">5</option>
+                                <option value="">10</option>
+                                <option value="">20</option>
+                            </Select>
+                            products
+                        </div>
+                        <div class="col-sm-3">
+                            Category
+                            <Select class="form-select" style="width: auto;display:inline-block;">
+                                <option value="">ALL</option>
+                                <option value="">Chair</option>
+                                <option value="">Table</option>
+                            </Select>
+                        </div>
+                        <div class="col-sm-6" style="float: right;">
+                            <input id="search" type="search" placeholder="Search" class="form-control"
+                                style="width: auto;float: right; ">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>STT</th>
+                                    <th class="all">Product</th>
+                                    <th>Category</th>
+                                    <th>Added Date</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th style="width: 115px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        <img src="assets/images/products/product-1.jpg" alt="contact-img"
+                                            title="contact-img" class="rounded me-3" height="48">
+                                        <p class="m-0 d-inline-block align-middle font-16">
+                                            <a href="apps-ecommerce-products-details.html" class="text-body">Amazing
+                                                Modern Chair</a>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        Aeron Chairs
+                                    </td>
+                                    <td>
+                                        09/12/2018
+                                    </td>
+                                    <td>
+                                        $148.66
+                                    </td>
+
+                                    <td>
+                                        254
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">Active</span>
+                                    </td>
+
+                                    <td class="table-action">
+                                        <a href="javascript:void(0);" class="action-icon"> <i
+                                                class="mdi mdi-eye"></i></a>
+                                        <a href="javascript:void(0);" class="action-icon"> <i
+                                                class="mdi mdi-square-edit-outline"></i></a>
+                                        <a href="javascript:void(0);" class="action-icon"> <i
+                                                class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination pagination-rounded" style="float: right;">
+                        <li class="paginate_button page-item previous" id="products-datatable_previous"><a href="#"
+                                aria-controls="products-datatable" data-dt-idx="0" tabindex="0" class="page-link"><i
+                                    class="mdi mdi-chevron-left"></i></a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="products-datatable"
+                                data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="products-datatable"
+                                data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                        <li class="paginate_button page-item active"><a href="#" aria-controls="products-datatable"
+                                data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                        <li class="paginate_button page-item next disabled" id="products-datatable_next"><a href="#"
+                                aria-controls="products-datatable" data-dt-idx="4" tabindex="0" class="page-link"><i
+                                    class="mdi mdi-chevron-right"></i></a></li>
+                    </ul>
+
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+
+    <link rel="stylesheet" href="../../controllers/product.js">
+    <!-- end row -->
+
+</div> <!-- container -->
