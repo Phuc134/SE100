@@ -1,0 +1,79 @@
+<div class="container-fluid">
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">                               
+                                    <h4 class="page-title">Thêm mới nhân viên</h4>
+                                </div>
+                            </div>
+                        </div>     
+                        <!-- end page title --> 
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">                                      
+                                        <div class="tab-content">
+                                            <div class="tab-pane show active" id="input-types-preview">
+                                                <form method="POST" action="/users/create">
+                                                <div class="row">                                           
+                                                    <div class="col-lg-6">                                                       
+                                                            <div class="mb-3">
+                                                                <label for="namep" class="form-label">Họ tên</label>
+                                                                <input type="text" id="namep" class="form-control" name="name">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="example-date" class="form-label">Ngày sinh</label>
+                                                                <input class="form-control" id="example-date" type="date" name="birth">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="adddress" class="form-label">Địa chỉ</label>
+                                                                <input type="text" id="adddress" class="form-control" name="address">                                                         
+                                                            </div>            
+
+                                                            <div class="mb-3">
+                                                                <label for="example-number" class="form-label">Số điện thoại</label>
+                                                                <input class="form-control" id="example-number" type="number" name="phone">
+                                                            </div>                                                                                             
+                                                    </div> <!-- end col -->
+                                                    <div class="col-lg-6">                                                                     
+                                                            <div class="mb-3">
+                                                                <label for="username" class="form-label">Username</label>
+                                                                <input type="text" id="username" class="form-control" name="username">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="password" class="form-label">Password</label>
+                                                                <div class="input-group input-group-merge">
+                                                                    <input type="password" id="password" class="form-control" placeholder="Enter your password" name="password">
+                                                                    <div class="input-group-text" data-password="false">
+                                                                        <span class="password-eye"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="example-select" class="form-label">Vai trò</label>
+                                                                <select class="form-select" id="example-select" name="idrole">
+                                                                    <option value="Nhân viên">Nhân viên</option> 
+                                                                    <option value="Admin">Admin</option>                                                                                                                          
+                                                                </select>
+                                                            </div>                                                                                                                                                                             
+                                                    </div> <!-- end col -->                            
+                                                </div>
+                                                <button class="btn btn-success" style="float:right;">Lưu</button>
+                                                </form>
+                                                <!-- end row-->                      
+                                            </div> <!-- end preview-->
+                                                                              
+                                        </div> <!-- end tab-content-->
+                                    </div> <!-- end card-body -->
+                                </div> <!-- end card -->
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+
+                        
+</div>

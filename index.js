@@ -10,9 +10,6 @@ const route = require('./routes');
 // connect to db
 db.connect();
 
-
-
-
 var app = express();
 // Template engine
 app.engine('hbs', handlebars({
@@ -33,6 +30,5 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 //Route init
 route(app);
-
 
 app.listen(3000);
