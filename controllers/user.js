@@ -8,8 +8,15 @@ class CustomerController {
         User.find({},(err,docs) =>{
             if (err){
                 console.log(err);
-            }
-            res.render('user/users', {users: multipleMongooseToObject(docs)});
+            }       
+            res.render('user/users', {users: multipleMongooseToObject(docs),
+                                      isUserCreated: req.session.isUserCreated,
+                                      isUserDeleted: req.session.isisUserDeleted,
+                                      isUserUpdated: req.session.isUserUpdated,
+            });
+            delete req.session.isUserCreated;
+            delete req.session.isUserDeleted;
+            delete req.session.isUserUpdated;
         });
         
     }
@@ -23,6 +30,7 @@ class CustomerController {
         newUser.birth = moment(newUser.birth).format('YYYY-MM-DD');
         newUser.save()
             .then(()=>{
+                req.session.isUserCreated = 'true';
                 res.redirect('/users');
             })
             .catch(err=>{
@@ -36,6 +44,7 @@ class CustomerController {
             if (err){
                 console.log(err);
             }
+            req.session.isUserDeleted = 'true';
             res.redirect('/users');
         })
     }
@@ -65,6 +74,7 @@ class CustomerController {
             if (err){
                 console.log(err);
             }
+            req.session.isUserUpdated = 'true';
             res.redirect('/users');
         })
     }

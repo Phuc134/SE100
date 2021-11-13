@@ -35,9 +35,9 @@
                                                         <th>Phone</th>
                                                         <th>Email</th>
                                                         <th>Location</th>
-                                                        <th>Role</th>
+                                                        <th>Role</th>                                                 
                                                         <th>Status</th>
-                                                        <th style="width: 75px;">Action</th>
+                                                        <th style="width: 75px;">Action</th>                                     
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -99,6 +99,17 @@
 
                         </form>            
                     <script>
+                        // alert
+                        {{#if isUserCreated}}
+                            swal("Thêm mới nhân viên thành công!",'' ,"success");
+                        {{/if}}
+                        {{#if isUserDeleted}}
+                            swal("Xóa nhân viên thành công!",'' ,"success");
+                        {{/if}}
+                        {{#if isUserUpdated}}
+                            swal("Cập nhật nhân viên thành công!", '',"success");
+                        {{/if}}
+                        // alert
                         document.addEventListener('DOMContentLoaded', function () {
                             var UId;
                             var deleteForm = document.forms['formDeleteUser'];
