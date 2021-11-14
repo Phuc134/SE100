@@ -28,6 +28,17 @@ app.use(
 );
 app.use(express.json());
 app.use(methodOverride('_method'));
+
+// 
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+app.use(cookieParser());
+
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
 //Route init
 route(app);
 
