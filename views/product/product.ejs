@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <a href="javascript:void(0);" class="btn btn-danger mb-2"><i
+                            <a href="javascript:void(0);" class="btn btn-danger mb-2 js-add-product"><i
                                     class="mdi mdi-plus-circle me-2"></i> Add Products</a>
                         </div>
 
@@ -51,7 +51,6 @@
                                     <th>STT</th>
                                     <th class="all">Product</th>
                                     <th>Category</th>
-                                    <th>Added Date</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Status</th>
@@ -59,44 +58,45 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <img src="assets/images/products/product-1.jpg" alt="contact-img"
-                                            title="contact-img" class="rounded me-3" height="48">
-                                        <p class="m-0 d-inline-block align-middle font-16">
-                                            <a href="apps-ecommerce-products-details.html" class="text-body">Amazing
-                                                Modern Chair</a>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        Aeron Chairs
-                                    </td>
-                                    <td>
-                                        09/12/2018
-                                    </td>
-                                    <td>
-                                        $148.66
-                                    </td>
+                                <% for (var i=0;i< items.length; i++) { %>
+                                    <tr>
+                                        <td>
+                                            <%= i+1 %>
+                                        </td>
+                                        <td>
+                                            <img src="assets/uploads/<%= items[i].Image %>" alt="contact-img"
+                                                title="contact-img" class="rounded me-3" height="48">
+                                            <p class="m-0 d-inline-block align-middle font-16">
+                                                <a href="apps-ecommerce-products-details.html" class="text-body">
+                                                    <%= items[i].Name %>
+                                                </a>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <%= items[i].idType %>
+                                        </td>
+                                        <td>
+                                            <%= items[i].Price %>
+                                        </td>
 
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-success">Active</span>
-                                    </td>
+                                        <td>
+                                            <%= items[i].Quantity %>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success">Active</span>
+                                        </td>
 
-                                    <td class="table-action">
-                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                class="mdi mdi-eye"></i></a>
-                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                class="mdi mdi-square-edit-outline"></i></a>
-                                        <a href="javascript:void(0);" class="action-icon"> <i
-                                                class="mdi mdi-delete"></i></a>
-                                    </td>
-                                </tr>
+                                        <td class="table-action">
+                                            <a href="javascript:void(0);" id="<%= items[i]._id %>" class="action-icon">
+                                                <i class="mdi mdi-eye"></i></a>
+                                            <a href="javascript:void(0);" id="<%= items[i]._id %>"
+                                                class="action-icon js-edit"> <i
+                                                    class="mdi mdi-square-edit-outline"></i></a>
+                                            <a href="javascript:void(0);" id="<%= items[i]._id %>" class="action-icon">
+                                                <i class="mdi mdi-delete"></i></a>
+                                        </td>
+                                    </tr>
+                                    <% } %>
                             </tbody>
                         </table>
                     </div>
@@ -120,7 +120,112 @@
         </div> <!-- end col -->
     </div>
 
-    <link rel="stylesheet" href="../../controllers/product.js">
-    <!-- end row -->
+    <form action="/product/create" method="post" enctype="multipart/form-data">
+        <dialog id="create">
+            <div class="modal-container">
+                <div class="modal-close js-modal-close" style="width: 20px;height: 20px; display: inline-block;">
+                    <i class="mdi mdi-close"></i>
+                </div>
+                <header class="modal-label">
+                    Thêm sản phẩm
+                </header>
+                <div>
+                    <label class="modal-label">
+                        Tên sản phẩm
+                    </label>
+                    <input type="text" name="NameProduct" class="form-control">
+                    <br>
+                    <label class="modal-label">
+                        Loại sản phẩm
+                    </label>
+                    <select name="" id="" class="form-select">
+                        <option value="0">Chair</option>
+                        <option value="1">Table</option>
+                    </select>
+                    <br>
+                    <label class="modal-label">
+                        Giá
+                    </label>
+                    <input type="number" name="PriceProduct" class="form-control">
+                    <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="productImage">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Luu</button>
+            </div>
+        </dialog>
+    </form>
+    <form id="form-edit-product" action="">
+        <dialog id="edit">
+            <div class="modal-container">
+                <div class="modal-close js-modal-close" style="width: 20px;height: 20px; display: inline-block;">
+                    <i class="mdi mdi-close"></i>
+                </div>
+                <header class="modal-label">
+                    Thêm sản phẩm
+                </header>
+                <div>
+                    <label class="modal-label">
+                        Tên sản phẩm
+                    </label>
+                    <input type="text" name="NameProduct" class="form-control">
+                    <br>
+                    <label class="modal-label">
+                        Loại sản phẩm
+                    </label>
+                    <select name="" id="" class="form-select">
+                        <option value="0">Chair</option>
+                        <option value="1">Table</option>
+                    </select>
+                    <br>
+                    <label class="modal-label">
+                        Giá
+                    </label>
+                    <input type="number" name="PriceProduct" class="form-control">
+                    <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="productImage">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Luu</button>
+            </div>
+        </dialog>
+    </form>
+    <!--set up-->
+    <script>
+        const btn_edits = document.querySelectorAll('.js-edit');
+        function setup(id) {
+            const form_edit = getElementById('form-edit-product');
+            form_edit.action = '/product/' + id + '?_method=PUT';
+            $.ajax({
+                url: '/product/view/' + id,
+                method: 'GET',
+                contentType: 'application/json',
+                success: function (data) {
+                    form_edit.elements['NameProduct'].value= data.Name;
+                    form_edit.elements['productImage'].value= data.Image;
+                    form_edit.elements['PriceProduct'].value= data.Price;
+                }
+            })
+            form_edit.showModal();
+        }
+        for (var btn_edit of btn_edit) {
+            btn_edit.addEventListener('click', setup(btn_edit.id))
+        }
+    </script>
 
+    <script>
+        const modal = document.getElementById('create');
+        const a = document.querySelector('.js-add-product');
+        const closee = document.querySelector('.js-modal-close');
+        function show() {
+            modal.showModal();
+        }
+        function hide() {
+            modal.close();
+        }
+        a.addEventListener('click', show);
+        closee.addEventListener('click', hide);
+    </script>
+    <!--Edit-->
+    <script>
+
+    </script>
 </div> <!-- container -->
