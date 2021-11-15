@@ -16,7 +16,7 @@
                                     <div class="card-body">                                      
                                         <div class="tab-content">
                                             <div class="tab-pane show active" id="input-types-preview">
-                                                <form method="POST" action="/users/create">
+                                                <form method="POST" action="/users/create" id="createForm">
                                                 <div class="row">                                           
                                                     <div class="col-lg-6">                                                       
                                                             <div class="mb-3">
@@ -25,18 +25,18 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="example-date" class="form-label">Ngày sinh</label>
-                                                                <input class="form-control" id="example-date" type="date" name="birth">
+                                                                <label for="birth" class="form-label">Ngày sinh</label>
+                                                                <input class="form-control" id="birth" type="date" name="birth">
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="adddress" class="form-label">Địa chỉ</label>
-                                                                <input type="text" id="adddress" class="form-control" name="address">                                                         
+                                                                <label for="address" class="form-label">Địa chỉ</label>
+                                                                <input type="text" id="address" class="form-control" name="address">                                                         
                                                             </div>            
 
                                                             <div class="mb-3">
-                                                                <label for="example-number" class="form-label">Số điện thoại</label>
-                                                                <input class="form-control" id="example-number" type="number" name="phone">
+                                                                <label for="phone" class="form-label">Số điện thoại</label>
+                                                                <input class="form-control" id="phone" type="number" name="phone">
                                                             </div>                                                                                             
                                                     </div> <!-- end col -->
                                                     <div class="col-lg-6">                                                                     
@@ -56,15 +56,15 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="example-select" class="form-label">Vai trò</label>
-                                                                <select class="form-select" id="example-select" name="idrole">
+                                                                <label for="idrole" class="form-label">Vai trò</label>
+                                                                <select class="form-select" id="idrole" name="idrole">
                                                                     <option value="Nhân viên">Nhân viên</option> 
                                                                     <option value="Admin">Admin</option>                                                                                                                          
                                                                 </select>
                                                             </div>                                                                                                                                                                             
                                                     </div> <!-- end col -->                            
                                                 </div>
-                                                <button class="btn btn-success" style="float:right;">Lưu</button>
+                                                <button class="btn btn-success" style="float:right;" >Lưu</button>
                                                 </form>
                                                 <!-- end row-->                      
                                             </div> <!-- end preview-->
@@ -73,7 +73,77 @@
                                     </div> <!-- end card-body -->
                                 </div> <!-- end card -->
                             </div><!-- end col -->
-                        </div><!-- end row -->
-
-                        
+                        </div><!-- end row -->           
 </div>
+<script>
+    function validForm() {
+        return $.ajax({
+            url : "http://localhost:3000/api/uservalidator",
+            type : "post",
+            dataType:"json",
+            data : {               
+                name : $('#namep').val(),
+                birth : $('#birth').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                username : $('#username').val(),
+                password : $('#password').val(),
+                idrole : $('#idrole').val(),
+            },
+            success : function (result){
+                if(result.errors.length == 0){
+                    alert('ko lỗi');
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+    }
+    $('#createForm').submit(function (e){
+        var isSubmit = false;
+
+        var ajaxCall = $.ajax({
+            url : "http://localhost:3000/api/uservalidator",
+            type : "post",
+            dataType:"json",
+            data : {               
+                name : $('#namep').val(),
+                birth : $('#birth').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                username : $('#username').val(),
+                password : $('#password').val(),
+                idrole : $('#idrole').val(),
+            },
+            success : function (result){
+                if(result.errors.length == 0){                   
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+
+        ajaxCall.done(function(data) {           
+            if (isSubmit){
+                $('#createForm').submit();       
+            }
+        }); 
+        return false;   
+    });
+</script>

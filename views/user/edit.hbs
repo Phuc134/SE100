@@ -16,7 +16,7 @@
                                     <div class="card-body">                                      
                                         <div class="tab-content">
                                             <div class="tab-pane show active" id="input-types-preview">
-                                                <form method="POST" action="/users/update">
+                                                <form method="POST" action="/users/update" id="createForm">
                                                 <div class="row">                                       
                                                     <div class="col-lg-6">                                                       
                                                             <div class="mb-3">
@@ -25,18 +25,18 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="example-date" class="form-label">Ngày sinh</label>
-                                                                <input class="form-control" id="example-date" type="date" name="birth" value="{{date}}">
+                                                                <label for="birth" class="form-label">Ngày sinh</label>
+                                                                <input class="form-control" id="birth" type="date" name="birth" value="{{date}}">
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="adddress" class="form-label">Địa chỉ</label>
-                                                                <input type="text" id="adddress" class="form-control" name="address" value="{{user.address}}">                                                         
+                                                                <label for="address" class="form-label">Địa chỉ</label>
+                                                                <input type="text" id="address" class="form-control" name="address" value="{{user.address}}">                                                         
                                                             </div>            
 
                                                             <div class="mb-3">
-                                                                <label for="example-number" class="form-label">Số điện thoại</label>
-                                                                <input class="form-control" id="example-number" type="number" name="phone" value="{{user.phone}}">
+                                                                <label for="phone" class="form-label">Số điện thoại</label>
+                                                                <input class="form-control" id="phone" type="number" name="phone" value="{{user.phone}}">
                                                             </div>                                                                                             
                                                     </div> <!-- end col -->
                                                     <div class="col-lg-6">                                                                     
@@ -54,8 +54,8 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="example-select" class="form-label">Vai trò</label>
-                                                                <select class="form-select" id="example-select" name="idrole" value="{{user.idrole}}">
+                                                                <label for="idrole" class="form-label">Vai trò</label>
+                                                                <select class="form-select" id="idrole" name="idrole" value="{{user.idrole}}">
                                                                     <option value="Nhân viên">Nhân viên</option> 
                                                                     <option value="Admin">Admin</option>                                                                                                                          
                                                                 </select>
@@ -78,9 +78,75 @@
                                     date = "{{user.birth}}";
                                     date.substr(0, 10);
                                     console.log(date);
-                                });
+                                });                       
                             </script>
-                        </div><!-- end row -->
-
-                        
+                        </div><!-- end row -->            
 </div>
+<script>
+    function validForm() {
+        return $.ajax({
+            url : "http://localhost:3000/api/userupdatevalid",
+            type : "post",
+            dataType:"json",
+            data : {               
+                name : $('#namep').val(),
+                birth : $('#birth').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                idrole : $('#idrole').val(),
+            },
+            success : function (result){
+                if(result.errors.length == 0){
+                    alert('ko lỗi');
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+    }
+    $('#createForm').submit(function (e){
+        var isSubmit = false;
+
+        var ajaxCall = $.ajax({
+            url : "http://localhost:3000/api/userupdatevalid",
+            type : "post",
+            dataType:"json",
+            data : {               
+                name : $('#namep').val(),
+                birth : $('#birth').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),             
+                idrole : $('#idrole').val(),
+            },
+            success : function (result){
+                if(result.errors.length == 0){                   
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+
+        ajaxCall.done(function(data) {           
+            if (isSubmit){
+                $('#createForm').submit();       
+            }
+        }); 
+        return false;   
+    });
+</script>

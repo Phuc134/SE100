@@ -11,7 +11,7 @@ class CustomerController {
             }       
             res.render('user/users', {users: multipleMongooseToObject(docs),
                                       isUserCreated: req.session.isUserCreated,
-                                      isUserDeleted: req.session.isisUserDeleted,
+                                      isUserDeleted: req.session.isUserDeleted,
                                       isUserUpdated: req.session.isUserUpdated,
             });
             delete req.session.isUserCreated;
@@ -40,7 +40,7 @@ class CustomerController {
     // [POST] /users/:id/delete
     delete(req,res){
         let id = req.params.id;
-        User.findOneAndDelete({id:id},(err, doc)=>{
+        User.findOneAndDelete({iduser:id},(err, doc)=>{
             if (err){
                 console.log(err);
             }
