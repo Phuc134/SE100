@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title">Add Supplier</h4>
+                <h4 class="page-title">Thêm nhà cung cấp</h4>
             </div>
         </div>
     </div>
@@ -15,23 +15,42 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
+                        {{#each alerts}}
+                            <div class="alert alert-warning" role="alert">
+                                {{this.msg}}
+                            </div>
+                        {{/each}}
                         <form method="post" action="/suppliers/store">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Tên nhà cung cấp</label>
+                            {{#if values}}
+                            <input type="text" value="{{values.name}}" id="name" class="form-control" name="name">
+                            {{else}}
                             <input type="text" id="name" class="form-control" name="name">
+                            {{/if}}
                         </div>
 
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
+                            <label for="phone" class="form-label">Số điện thoại</label>
+                            {{#if values}}
+                            <input type="numeric" value="{{values.phone}}" id="phone" name="phone" class="form-control"
+                                placeholder="0123456789">
+                            {{else}}
                             <input type="numeric" id="phone" name="phone" class="form-control"
                                 placeholder="0123456789">
+                            {{/if}}
                         </div>
                         <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
+                            <label for="address" class="form-label">Địa chỉ</label>
+                            {{#if values}}
+                            <input type="text" value="{{values.address}}" id="address" name="address" class="form-control"
+                                placeholder="hcm">
+                            {{else}}
                             <input type="text" id="address" name="address" class="form-control"
                                 placeholder="hcm">
+                            {{/if}}
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Thêm mới</button>
                         </form>
                     </div>
                 </div> <!-- end card-body-->

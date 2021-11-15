@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title">Edit Supplier</h4>
+                <h4 class="page-title">Chỉnh sửa nhà cung cấp</h4>
             </div>
         </div>
     </div>
@@ -15,23 +15,45 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                        <form method="post" action="/suppliers/{{editSupplier._id}}?_method=PUT">
+                         {{#each alerts}}
+                            <div class="alert alert-warning" role="alert">
+                                {{this.msg}}
+                            </div>
+                        {{/each}}
+
+                        {{#if editSupplier._id}}
+                            <form method="post" action="/suppliers/{{editSupplier._id}}?_method=PUT">
+                        {{else}}
+                            <form method="post" action="/suppliers/{{id}}?_method=PUT">
+                        {{/if}}
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" id="name" value="{{editSupplier.name}}" class="form-control" name="name">
+                            <label for="name" class="form-label">Tên nhà cung cấp</label>
+                            {{#if editSupplier.name}}
+                                <input type="text" id="name" value="{{editSupplier.name}}" class="form-control" name="name">
+                            {{else}}
+                                <input type="text" id="name" value="{{values.name}}" class="form-control" name="name">
+                            {{/if}}
                         </div>
 
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="numeric" id="phone" value="{{editSupplier.phone}}" name="phone" class="form-control"
-                                placeholder="0123456789">
+                            <label for="phone" class="form-label">Số điện thoại</label>
+                            {{#if editSupplier.phone}}
+                                <input type="numeric" id="phone" value="{{editSupplier.phone}}" name="phone" class="form-control"
+                                    placeholder="0123456789">
+                            {{else}}
+                                <input type="numeric" id="phone" value="{{values.phone}}" name="phone" class="form-control"
+                                    placeholder="0123456789">
+                            {{/if}}
                         </div>
                         <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" id="address" value="{{editSupplier.address}}" name="address" class="form-control"
-                                placeholder="hcm">
+                            <label for="address" class="form-label">Địa chỉ</label>
+                            {{#if editSupplier.address}}
+                                <input type="text" id="address" value="{{editSupplier.address}}" name="address" class="form-control" placeholder="hcm">
+                            {{else}}
+                                <input type="text" id="address" value="{{values.address}}" name="address" class="form-control" placeholder="hcm">
+                            {{/if}}
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
                         </form>
                     </div>
                 </div> <!-- end card-body-->

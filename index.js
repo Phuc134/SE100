@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const handlebars  = require('express-handlebars');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 //const mongoose = require('mongoose');
 
 const db = require('./config/db');
@@ -31,6 +33,12 @@ app.use(
 );
 app.use(express.json());
 app.use(methodOverride('_method'));
+app.use(cookieParser());
+app.use(session({
+    secret : 'secret',
+    resave : true,
+    saveUninitialized : true
+}));
 //Route init
 route(app);
 
