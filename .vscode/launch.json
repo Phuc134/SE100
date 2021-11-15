@@ -14,7 +14,6 @@
                "**/node_modules/**",
            ],
            "program": "${file}",
-           "sourceMaps": true,
            "trace": true,
            "type": "pwa-node",
        },

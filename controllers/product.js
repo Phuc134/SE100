@@ -29,12 +29,14 @@ class productController{
         })
     }
     //[PUT]
-    async update(req,res,next){
-        const id=req.params.id;
-        Product.findOne({"_id": id}, async (err, data)=>{
+    async update(req, res, next){
+        let id=req.params.id;
+        console.log(id);
+        console.log(req.body.NameProduct);
+       Product.findOne({"_id": id}, async (err, data)=>{
             data.NameProduct= req.body.NameProduct;
             data.Price= req.body.PriceProduct;
-            data.Image= req.file.filename;
+            if (!req.file.filename) data.Image= req.file.filename;
             await data.save();
             res.redirect('/product');
         })
