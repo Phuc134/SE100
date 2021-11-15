@@ -3,7 +3,7 @@ const {mongooseToObject} = require('../util/mongoose');
 const User = require('../models/user');
 const moment = require('moment');
 class CustomerController {
-    // [GET] users
+    // [GET] users /users
     index(req, res,next) {
         User.find({},(err,docs) =>{
             if (err){
