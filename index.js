@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 const route = require('./routes');
 const path = require('path');
 const expressLayout= require('express-ejs-layouts');
+const methodOverride = require('method-override');
 
 //connect to db
 db.connect();
@@ -16,6 +17,8 @@ app.use(expressLayout);
 app.set("view engine", "ejs");
 app.set("views", "./views");
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
+
 //app.use(express.static(path.join(__dirname,'public')));
 app.get('/',(req,res)=>{
     res.render('employee/employee');

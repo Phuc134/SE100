@@ -89,9 +89,8 @@
                                         <td class="table-action">
                                             <a href="javascript:void(0);" id="<%= items[i]._id %>" class="action-icon">
                                                 <i class="mdi mdi-eye"></i></a>
-                                            <a href="javascript:void(0);" id="<%= items[i]._id %>"
-                                                class="action-icon js-edit"> <i
-                                                    class="mdi mdi-square-edit-outline"></i></a>
+                                            <a href="/product/edit/<%= items[i]._id %>""
+                                                class="action-icon js-edit"> <i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="javascript:void(0);" id="<%= items[i]._id %>" class="action-icon">
                                                 <i class="mdi mdi-delete"></i></a>
                                         </td>
@@ -154,62 +153,7 @@
             </div>
         </dialog>
     </form>
-    <form id="form-edit-product" action="">
-        <dialog id="edit">
-            <div class="modal-container">
-                <div class="modal-close js-modal-close" style="width: 20px;height: 20px; display: inline-block;">
-                    <i class="mdi mdi-close"></i>
-                </div>
-                <header class="modal-label">
-                    Thêm sản phẩm
-                </header>
-                <div>
-                    <label class="modal-label">
-                        Tên sản phẩm
-                    </label>
-                    <input type="text" name="NameProduct" class="form-control">
-                    <br>
-                    <label class="modal-label">
-                        Loại sản phẩm
-                    </label>
-                    <select name="" id="" class="form-select">
-                        <option value="0">Chair</option>
-                        <option value="1">Table</option>
-                    </select>
-                    <br>
-                    <label class="modal-label">
-                        Giá
-                    </label>
-                    <input type="number" name="PriceProduct" class="form-control">
-                    <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="productImage">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Luu</button>
-            </div>
-        </dialog>
-    </form>
     <!--set up-->
-    <script>
-        const btn_edits = document.querySelectorAll('.js-edit');
-        function setup(id) {
-            const form_edit = getElementById('form-edit-product');
-            form_edit.action = '/product/' + id + '?_method=PUT';
-            $.ajax({
-                url: '/product/view/' + id,
-                method: 'GET',
-                contentType: 'application/json',
-                success: function (data) {
-                    form_edit.elements['NameProduct'].value= data.Name;
-                    form_edit.elements['productImage'].value= data.Image;
-                    form_edit.elements['PriceProduct'].value= data.Price;
-                }
-            })
-            form_edit.showModal();
-        }
-        for (var btn_edit of btn_edit) {
-            btn_edit.addEventListener('click', setup(btn_edit.id))
-        }
-    </script>
 
     <script>
         const modal = document.getElementById('create');

@@ -1,18 +1,17 @@
 var Product= require('../models/product');
 var upload= require('../middleware/upload');
 const multer = require('multer');
-const product = require('../models/product');
 class productController{
-    //[]
-    view(req, res, next){
-        var id=req.params.id;
-        Product.find({_id: id}, (err,data)=>{
+    //[GET]
+    async edit(req, res, next){
+        let id= req.params.id;
+        Product.findOne({_id: id},(err,item)=>{
             if (err) {
                 console.log(err);
             }
             else
             {
-                return(data);
+                res.render('product/edit', {item: item});
             }
         })
     }
@@ -30,7 +29,7 @@ class productController{
         })
     }
     //[PUT]
-    async edit(req,res,next){
+    async update(req,res,next){
         const id=req.params.id;
         Product.findOne({"_id": id}, async (err, data)=>{
             data.NameProduct= req.body.NameProduct;

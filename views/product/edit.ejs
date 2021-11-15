@@ -1,0 +1,31 @@
+<form method="POST" action="/product/update/<%= item._id %>/?_method=PUT" enctype="multipart/form-data">
+    <div class="modal-container">
+        <div class="modal-close js-modal-close" style="width: 20px;height: 20px; display: inline-block;">
+            <i class="mdi mdi-close"></i>
+        </div>
+        <header class="modal-label">
+            Thêm sản phẩm
+        </header>
+        <label class="modal-label">
+            Tên sản phẩm
+        </label>
+        <input type="text" name="NameProduct" class="form-control" value="<%= item.Name %>">
+        <br>
+        <label class="modal-label">
+            Loại sản phẩm
+        </label>
+        <select name="" id="" class="form-select">
+            <option value="0">Chair</option>
+            <option value="1">Table</option>
+        </select>
+        <br>
+        <label class="modal-label">
+            Giá
+        </label>
+        <input type="number" name="PriceProduct" class="form-control" value="<%= item.Price %>">
+        <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="productImage"
+            value="<%= item.Image %>">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Luu</button>
+</form>
