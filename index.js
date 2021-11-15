@@ -1,27 +1,34 @@
 const express = require('express');
-const db= require('./config/db');
-var app = express();
-var bodyParser = require('body-parser');
-const route = require('./routes');
 const path = require('path');
-const expressLayout= require('express-ejs-layouts');
-const methodOverride = require('method-override');
+const handlebars  = require('express-handlebars');
+const methodOverride = require('method-override')
+//const mongoose = require('mongoose');
 
-//connect to db
+const db = require('./config/db');
+const route = require('./routes');
+
+// connect to db
 db.connect();
-// Step 4 - set up EJS
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-// Set EJS as templating engine 
-app.use(expressLayout);
-app.set("view engine", "ejs");
-app.set("views", "./views");
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride('_method'));
 
-//app.use(express.static(path.join(__dirname,'public')));
-app.get('/',(req,res)=>{
-    res.render('employee/employee');
-})
+var app = express();
+// Template engine
+app.engine('hbs', handlebars({
+    extname : '.hbs',
+    helpers: {
+        sum: (a,b) => a+b
+    }
+}));
+app.set('view engine','hbs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static('public'));
+app.use(
+    express.urlencoded({
+        extended: true,
+    }),
+);
+app.use(express.json());
+app.use(methodOverride('_method'));
+//Route init
 route(app);
+
 app.listen(3000);

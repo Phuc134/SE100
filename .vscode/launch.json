@@ -4,19 +4,16 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-       {
-           "name": "Attach by Process ID",
-           "processId": "${command:PickProcess}",
-           "request": "attach",
-           "skipFiles": [
-               "<node_internals>/**",
-               "**/app/out/vs/**",
-               "**/node_modules/**",
-           ],
-           "program": "${file}",
-           "trace": true,
-           "type": "pwa-node",
-       },
+        {
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}",
+            "request": "attach",
+            "trace": true,
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
         {
             "type": "pwa-chrome",
             "request": "launch",

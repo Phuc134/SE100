@@ -1,4 +1,3 @@
-const { Error } = require('mongoose');
 const multer = require('multer');
 var storage = multer.diskStorage({
     destination: function(req, res, cb){
