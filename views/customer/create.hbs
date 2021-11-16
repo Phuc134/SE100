@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title">Customers</h4>
+                <h4 class="page-title">Thêm khách hàng</h4>
             </div>
         </div>
     </div>
@@ -15,28 +15,57 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                        <form method="post" action="/customers/store">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" id="name" class="form-control" name="name">
-                        </div>
+                        {{!-- hiển thị alert lỗi --}}
+                        {{#each alerts}}
+                            <div class="alert alert-warning" role="alert">
+                                {{this.msg}}
+                            </div>
+                        {{/each}}
+                        
+                        <form id="formCreateCustomer" method="post" action="/customers/store">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Tên</label>
+                                {{#if values.name}}
+                                <input type="text" id="name" class="form-control" name="name" value="{{values.name}}">
+                                {{else}}
+                                <input type="text" id="name" class="form-control" name="name">
+                                {{/if}}
+                                <span class="form-message"></span>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="numeric" id="phone" name="phone" class="form-control"
-                                placeholder="0123456789">
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" id="address" name="address" class="form-control"
-                                placeholder="hcm">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-control"
-                                placeholder="abcd@gmail.com">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Số điện thoại</label>
+                                {{#if values.phone}}
+                                <input type="numeric" id="phone" name="phone" class="form-control" value="{{values.phone}}"
+                                    placeholder="0123456789">
+                                {{else}}
+                                <input type="numeric" id="phone" name="phone" class="form-control"
+                                    placeholder="0123456789">
+                                {{/if}}
+                                <span class="form-message invalid-feedback"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Địa chỉ</label>
+                                {{#if values.address}}
+                                <input type="text" id="address" name="address" class="form-control" value="{{values.address}}"
+                                    placeholder="hcm">
+                                {{else}}
+                                <input type="text" id="address" name="address" class="form-control" placeholder="hcm">
+                                {{/if}}
+                                <span class="form-message"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                {{#if values.email}}
+                                <input type="email" id="email" name="email" class="form-control" value="{{values.email}}"
+                                    placeholder="abcd@gmail.com">
+                                {{else}}
+                                <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="abcd@gmail.com">
+                                {{/if}}
+                                <span class="form-message"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Thêm mới</button>
                         </form>
                     </div>
                 </div> <!-- end card-body-->
@@ -44,5 +73,4 @@
         </div> <!-- end col -->
     </div>
     <!-- end row -->
-
 </div> <!-- container -->
