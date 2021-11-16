@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <h4 class="page-title">Suppliers</h4>
+                <h4 class="page-title">Nhà cung cấp</h4>
             </div>
         </div>
     </div>
@@ -17,19 +17,19 @@
                     <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="/suppliers/create" class="btn btn-danger mb-2"><i
-                                    class="mdi mdi-plus-circle me-2"></i> Add Supplier</a>
+                                    class="mdi mdi-plus-circle me-2"></i>Thêm nhà cung cấp</a>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-sm-3">
-                            Display
+                            Hiển thị
                             <Select class="form-select" style="width: auto;display:inline-block;">
                                 <option value="">ALL</option>
                                 <option value="">5</option>
                                 <option value="">10</option>
                                 <option value="">20</option>
                             </Select>
-                            suppliers
+                            nhà cung cấp
                         </div>
                         <div class="col-sm-9" style="float: right;">
                             <input id="search" type="search" placeholder="Search" class="form-control"
@@ -42,10 +42,10 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Supplier</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th style="width: 115px;">Action</th>
+                                    <th>Nhà cung cấp</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width: 115px;">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,15 +91,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-colored-header bg-danger">
-                <h4 class="modal-title" id="danger-header-modalLabel">Delete supplier</h4>
+                <h4 class="modal-title" id="danger-header-modalLabel">Xóa nhà cung cấp</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-                Do you want to delete it?
+                Bạn có thực sự muốn xóa không?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button id="btn-delete-supplier" type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                <button id="btn-delete-supplier" type="button" class="btn btn-danger">Xóa</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -122,4 +122,16 @@
             deleteForm.submit();
         }
     });
+</script>
+
+<script>
+    {{#if isCreated}}
+        swal("Thêm nhà cung cấp thành công!", "", "success");
+    {{/if}}
+    {{#if isUpdated}}
+        swal("Sửa nhà cung cấp thành công!", "", "success");
+    {{/if}}
+    {{#if isDeleted}}
+        swal("Xóa nhà cung cấp thành công!", "", "success");
+    {{/if}}
 </script>
