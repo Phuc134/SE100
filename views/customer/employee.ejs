@@ -1,5 +1,5 @@
 <div class="container-fluid">
-                        
+
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -7,8 +7,8 @@
                 <h4 class="page-title">Customers</h4>
             </div>
         </div>
-    </div>     
-    <!-- end page title --> 
+    </div>
+    <!-- end page title -->
 
     <div class="row">
         <div class="col-12">
@@ -16,7 +16,8 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <a href="javascript:void(0);" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> Add Customers</a>
+                            <a href="/customers/create" class="btn btn-danger mb-2"><i
+                                    class="mdi mdi-plus-circle me-2"></i> Add Customers</a>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -36,7 +37,8 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-centered table-striped dt-responsive nowrap w-100" id="products-datatable">
+                        <table class="table table-centered table-striped dt-responsive nowrap w-100"
+                            id="products-datatable">
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -48,26 +50,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{#each customers}}
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{sum @index 1}}</td>
                                     <td class="table-user">
-                                        <img src="assets/images/users/avatar-4.jpg" alt="table-user" class="me-2 rounded-circle">
-                                        <a href="javascript:void(0);" class="text-body fw-semibold">Paul J. Friend</a>
+                                        <a href="javascript:void(0);" class="text-body fw-semibold">{{this.name}}</a>
                                     </td>
                                     <td>
-                                        937-330-1634
+                                        {{this.phone}}
                                     </td>
                                     <td>
-                                        pauljfrnd@jourrapide.com
+                                        {{this.email}}
                                     </td>
                                     <td>
-                                        New York
+                                        {{this.address}}
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                        <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                        <a href="customers/{{this._id}}/edit" class="action-icon"> <i
+                                                class="mdi mdi-square-edit-outline"></i></a>
+                                        <a href="javascript:void(0);" class="action-icon" data-bs-toggle="modal"
+                                            data-bs-target="#delete-customer-model" data-id="{{this._id}}"> <i
+                                                class="mdi mdi-delete"></i></a>
                                     </td>
                                 </tr>
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>
@@ -76,5 +82,48 @@
         </div> <!-- end col -->
     </div>
     <!-- end row -->
-    
-</div> <!-- container -->
+
+</div>
+
+{{!-- Delete hiden form --}}
+<form name="delete-customer-form" method="post">
+</form>
+
+{{!-- Confirm delete customer --}}
+<div id="delete-customer-model" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="danger-header-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-danger">
+                <h4 class="modal-title" id="danger-header-modalLabel">Delete customer</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete it?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button id="btn-delete-customer" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var customerId;
+        var deleteForm = document.forms['delete-customer-form'];
+        var btnDeleteCustomer = document.getElementById('btn-delete-customer');
+ 
+
+        $('#delete-customer-model').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            customerId = button.data('id');
+        })
+
+        btnDeleteCustomer.onclick = function(){
+            deleteForm.action = '/customers/' + customerId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    });
+</script>
