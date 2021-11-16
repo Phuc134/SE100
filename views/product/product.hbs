@@ -1,0 +1,173 @@
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title">Products</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <a href="javascript:void(0);" class="btn btn-danger mb-2 js-add-product"><i
+                                    class="mdi mdi-plus-circle me-2"></i> Add Products</a>
+                        </div>
+
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>STT</th>
+                                    <th class="all">Product</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th style="width: 115px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each items}}
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="customCheck2">
+                                            <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <img src="assets/uploads/{{this.Image}}" alt="contact-img" title="contact-img"
+                                            class="rounded me-3" height="48">
+                                        <p class="m-0 d-inline-block align-middle font-16">
+                                            <a href="apps-ecommerce-products-details.html" class="text-body">
+                                                {{this.Name}}
+                                            </a>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        {{ this.idType}}
+                                    </td>
+                                    <td>
+                                        {{this.Price }}
+                                    </td>
+
+                                    <td>
+                                        {{this.Quantity}}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">Active</span>
+                                    </td>
+
+                                    <td class="table-action">
+                                        <a href="/product/edit/{{this._id}}" class="action-icon js-edit"> <i
+                                                class="mdi mdi-square-edit-outline"></i></a>
+                                        <a style="cursor: pointer;" class="action-icon" data-id="{{this._id}}" data-bs-toggle="modal"
+                                            data-bs-target="#danger-header-modal"> <i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+
+    <form action="/product/create" method="post" enctype="multipart/form-data">
+        <dialog id="create">
+            <div class="modal-container">
+                <div class="modal-close js-modal-close" style="width: 20px;height: 20px; display: inline-block;">
+                    <i class="mdi mdi-close"></i>
+                </div>
+                <header class="modal-label">
+                    Thêm sản phẩm
+                </header>
+                <div>
+                    <label class="modal-label">
+                        Tên sản phẩm
+                    </label>
+                    <input type="text" name="NameProduct" class="form-control">
+                    <br>
+                    <label class="modal-label">
+                        Loại sản phẩm
+                    </label>
+                    <select name="idType" id="" class="form-select">
+                        <option value="0">Chair</option>
+                        <option value="1">Table</option>
+                    </select>
+                    <br>
+                    <label class="modal-label">
+                        Giá
+                    </label>
+                    <input type="number" name="PriceProduct" class="form-control">
+                    <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="productImage">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Luu</button>
+            </div>
+        </dialog>
+    </form>
+
+        <div id="danger-header-modal" class="modal fade" tabindex="-1" aria-labelledby="danger-header-modalLabel"
+            style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header bg-danger">
+                        <h4 class="modal-title" id="danger-header-modalLabel">Xóa sản phẩm ?</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="mt-0">Bạn muốn xóa sản phẩm</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                        <button id="btnDelete" type="button" class="btn btn-danger">Xác nhận</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    <form method="POST" id="formDeleteProduct">
+    </form>
+    <script>
+        const modal = document.getElementById('create');
+        const a = document.querySelector('.js-add-product');
+        const closee = document.querySelector('.js-modal-close');
+        function show() {
+            modal.showModal();
+        }
+        function hide() {
+            modal.close();
+        }
+        a.addEventListener('click', show);
+        closee.addEventListener('click', hide);
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var UId;
+            var deleteForm = document.forms['formDeleteProduct'];
+            var btnDelete = document.getElementById('btnDelete');
+            $('#danger-header-modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                UId = button.data('id');
+            })
+
+            btnDelete.onclick = function () {
+                console.log(UId);
+                deleteForm.action = '/product/delete/' + UId;
+                deleteForm.submit();
+            }
+        });
+    </script>
+</div>
