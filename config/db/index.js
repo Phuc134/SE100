@@ -3,7 +3,7 @@ const Role = require('../../models/role');
 const Permission = require('../../models/permission');
 const RoleToPermission = require('../../models/RoleToPermission');
 const User = require('../../models/user');
-
+const Regulation = require('../../models/regulation');
 async function InitRole(){
     var check = await Role.find({});
     if (check.length == 0){
@@ -54,6 +54,17 @@ async function InitRole(){
                 console.log(docs);
             }
         )
+        Regulation.create([
+            {name:'Số lượng nhập tối thiểu', value: 50},
+            {name:'Số lượng tồn tối đa', value: 400},
+            {name:'Lợi nhuận % trên sản phẩm', value:130}
+        ],(err ,docs) =>{
+            if (err){
+                console.log(err);
+            }
+            console.log(docs);
+        }
+        );
         console.log("Excute Init");
     }
 }
