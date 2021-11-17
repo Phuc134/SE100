@@ -3,7 +3,7 @@
                             <div class="col-xxl-6">
                                 <!-- start page title -->
                                 <div class="page-title-box">                               
-                                    <h4 class="page-title">Phân quyền <a href="#" class="btn btn-success btn-sm ms-3">Thêm mới</a></h4>
+                                    <h4 class="page-title">Phân quyền <a href="#" class="btn btn-danger  btn-sm ms-3">Thêm mới</a></h4>
                                 </div>
                                 <!-- end page title -->
 
@@ -279,52 +279,27 @@
                                     <h4 class="page-title">Quy định</h4>
                                 </div>                   
                                 <div class="card mb-0">
+                                            <form method="POST" action="/role/updateregulation">
                                             <div class="card-body">
-                                                <!-- task -->
-                                                <div class="row justify-content-sm-between">
-                                                    <div class="col-sm-12 mb-2 mb-sm-0">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="task1">
-                                                            <label class="form-check-label" for="task1">
-                                                                Draft the new contract document for sales team
-                                                            </label>
-                                                        </div> <!-- end checkbox -->
-                                                    </div> <!-- end col -->
-                                                 
-                                                </div>
+                                                {{#each regulation}}
+                                                <div class="row mb-3">                                               
+                                                    <label for="value" class="col-6 col-form-label">{{this.name}}</label>
+                                                    <div class="col-3">
+                                                        <input class="form-control" id="value" type="number" name="value_{{this.idregulation}}" value="{{this.value}}">
+                                                    </div>                                         
+                                                </div>                                                                                           
+                                                {{/each}}
+                                                 <button class="btn btn-success btn-sm ms-3 mb-3" style="float: right;">Cập nhật</a>
                                                 <!-- end task -->
-    
-                                                <!-- task -->
-                                                <div class="row justify-content-sm-between mt-2">
-                                                    <div class="col-sm-6 mb-2 mb-sm-0">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="task2">
-                                                            <label class="form-check-label" for="task2">
-                                                                iOS App home page
-                                                            </label>
-                                                        </div> <!-- end checkbox -->
-                                                    </div> <!-- end col -->                                                  
-                                                </div>
-                                                <!-- end task -->
-    
-                                                <!-- task -->
-                                                <div class="row justify-content-sm-between mt-2">
-                                                    <div class="col-sm-6 mb-2 mb-sm-0">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="task3">
-                                                            <label class="form-check-label" for="task3">
-                                                                Write a release note
-                                                            </label>
-                                                        </div> <!-- end checkbox -->
-                                                    </div> <!-- end col -->                                                 
-                                                </div>
-                                                 <a href="#" class="btn btn-success btn-sm ms-3" style="float: right;">Cập nhật</a>
-                                                <!-- end task -->
-                                            </div> <!-- end card-body-->                                     
+                                            </div> <!-- end card-body-->    
+                                            </form>                                 
                                 </div> <!-- end card -->                                   
                             </div> <!-- end col -->
                         </div>
                         <!-- end row-->
 </div> <!-- container -->
 <script>
+    {{#if isUpdatedRegulation}}
+        swal("Cập nhật quy định thành công!",'' ,"success");
+    {{/if}}
 </script>
