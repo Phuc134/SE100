@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             Hiển thị
                             <Select class="form-select" style="width: auto;display:inline-block;">
                                 <option value="">ALL</option>
@@ -31,7 +31,7 @@
                             </Select>
                             nhà cung cấp
                         </div>
-                        <div class="col-sm-9" style="float: right;">
+                        <div class="col-sm-8" style="float: right;">
                             <input id="search" type="search" placeholder="Search" class="form-control"
                                 style="width: auto;float: right; ">
                         </div>
@@ -41,16 +41,22 @@
                             id="products-datatable">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>STT</th>
                                     <th>Nhà cung cấp</th>
                                     <th>Số điện thoại</th>
+                                    <th>Email</th>
                                     <th>Địa chỉ</th>
+                                    <th>Last Contact</th>
                                     <th style="width: 115px;">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each suppliers}}
                                 <tr>
+                                    <td>
+                                        <input type="checkbox"/>
+                                    </td>
                                     <td>{{sum @index 1}}</td>
                                     <td class="table-user">
                                         <a href="javascript:void(0);" class="text-body fw-semibold">{{this.name}}</a>
@@ -59,7 +65,13 @@
                                         {{this.phone}}
                                     </td>
                                     <td>
+                                        {{this.email}}
+                                    </td>
+                                    <td>
                                         {{this.address}}
+                                    </td>
+                                    <td>
+                                        {{this.lastContact}}
                                     </td>
                                     <td>
                                         <a href="suppliers/{{this._id}}/edit" class="action-icon"> <i
@@ -68,6 +80,7 @@
                                             data-bs-target="#delete-supplier-model" data-id="{{this._id}}"> <i
                                                 class="mdi mdi-delete"></i></a>
                                     </td>
+                                    
                                 </tr>
                                 {{/each}}
                             </tbody>
@@ -78,6 +91,69 @@
         </div> <!-- end col -->
     </div>
     <!-- end row -->
+    {{!-- <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <a href="/suppliers/create" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i>Thêm
+                                nhà cung cấp</a>
+                        </div>
+                        <div class="col-sm-8">
+                        </div><!-- end col-->
+                    </div>
+        
+                    <div class="table-responsive">
+                        <table class="table table-centered table-striped dt-responsive nowrap w-100"
+                            id="products-datatable-user">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20px;">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="customCheck1">
+                                            <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                        </div>
+                                    </th>
+                                    <th>STT</th>
+                                    <th>Nhà cung cấp</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Last contact</th>
+                                    <th style="width: 75px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each suppliers}}
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="customCheck2">
+                                            <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td>{{sum @index 1}}</td>
+                                    <td> {{this.name}}</td>
+                                    <td> {{this.address}} </td>
+                                    <td> {{this.email}} </td>
+                                    <td> {{this.phone}} </td>
+                                    <td> {{this.lastContact}} </td>
+                                    <td>
+                                        <a href="/users/{{this.iduser}}/edit" class="action-icon"> <i
+                                                class="mdi mdi-square-edit-outline"></i></a>
+                                        <a class="action-icon" data-id="{{this.iduser}}" data-bs-toggle="modal"
+                                            data-bs-target="#delete-supplier-model"> <i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div> --}}
 
 </div>
 

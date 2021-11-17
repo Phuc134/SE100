@@ -39,6 +39,7 @@ class SupplierController {
         }
         //Add new supplier
         const storeSupplier = new supplier(req.body);
+        //res.json(storeSupplier)
         storeSupplier.save()
             .then(() => {
                 req.session.isCreated = 'true',
