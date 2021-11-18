@@ -41,7 +41,7 @@ let validateUpdateSupplier = () => {
         check('address', 'Địa chỉ không được trống').notEmpty(),
         check('phone', 'Số điện thoại chỉ chứa số').isNumeric(),
         check('email', 'Email không đúng định dạng').isEmail(),
-        body('name').custom(async (value,{req}) => {
+        body('name').custom(async (value, {req}) => {
             const p = await supplier.findOne({_id: req.params.id});
             const q = await supplier.findOne({name: value});
             if(q && p.id != q.id){
@@ -100,7 +100,7 @@ let validateEditCustomer = () => {
         body('phone').custom( async (value, {req}) => {
             const p = await customer.findById({_id : req.params.id});
             const q = await customer.findOne({phone : value});
-
+            
             if(q && q.phone!= p.phone) {
                 return Promise.reject('Số điện thoại này đã được sử dụng.');
             }

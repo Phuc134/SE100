@@ -15,56 +15,28 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                        {{!-- hiển thị alert lỗi --}}
-                        {{#each alerts}}
-                            <div class="alert alert-warning" role="alert">
-                                {{this.msg}}
-                            </div>
-                        {{/each}}
 
-                        {{#if editCustomer._id}}
-                        <form method="post" action="/customers/{{editCustomer._id}}?_method=PUT">
-                        {{else}}
-                        <form method="post" action="/customers/{{id}}?_method=PUT">
-                        {{/if}}
+                        
+                        <form id="formEditCustomer" method="post" action="/customers/{{editCustomer._id}}?_method=PUT">
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên</label>
-                            {{#if editCustomer.name}}
                             <input type="text" value="{{editCustomer.name}}" id="name" class="form-control" name="name">
-                            {{else}}
-                            <input type="text" value="{{values.name}}" id="name" class="form-control" name="name">
-                            {{/if}}
                         </div>
 
                         <div class="mb-3">
                             <label for="phone" class="form-label">Số điện thoại</label>
-                            {{#if editCustomer.phone}}
                             <input type="numeric" value="{{editCustomer.phone}}" id="phone" name="phone" class="form-control"
                                 placeholder="0123456789">
-                            {{else}}
-                            <input type="numeric" value="{{values.phone}}" id="phone" name="phone" class="form-control"
-                                placeholder="0123456789">
-                            {{/if}}
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ</label>
-                            {{#if editCustomer.address}}
                             <input type="text" value="{{editCustomer.address}}" id="address" name="address" class="form-control"
                                 placeholder="hcm">
-                            {{else}}
-                            <input type="text" value="{{values.address}}" id="address" name="address" class="form-control"
-                                placeholder="hcm">
-                            {{/if}}
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            {{#if editCustomer.email}}
                             <input type="email" value="{{editCustomer.email}}" id="email" name="email" class="form-control"
                                 placeholder="abcd@gmail.com">
-                            {{else}}
-                            <input type="email" value="{{values.email}}" id="email" name="email" class="form-control"
-                                placeholder="abcd@gmail.com">
-                            {{/if}}
                         </div>
                         <button type="submit" class="btn btn-primary">Thay đổi</button>
                         </form>
@@ -76,3 +48,68 @@
     <!-- end row -->
 
 </div> <!-- container -->
+
+<script>
+    function validForm() {
+        return $.ajax({
+            url : `http://localhost:3000/api/customerUpdateValid/{{editCustomer._id}}`,
+            type : "post",
+            dataType:"json",
+            data : {     
+                name : $('#name').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                email : $('#email').val()
+            },
+            success : function (result){
+                if(result.errors.length == 0){
+                    alert('ko lỗi');
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+    }
+    $('#formEditCustomer').submit(function (e){
+        var isSubmit = false;
+        var ajaxCall = $.ajax({
+            url : `http://localhost:3000/api/customerUpdateValid/{{editCustomer._id}}`,
+            type : "post",
+            dataType:"json",
+            data : { 
+                name : $('#name').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                email : $('#email').val()
+            },
+            success : function (result){
+                if(result.errors.length == 0){                   
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+        ajaxCall.done(function(data) {           
+            if (isSubmit){
+                $('#formEditCustomer').submit();       
+            }
+        }); 
+        return false;   
+    });
+</script>

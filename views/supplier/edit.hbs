@@ -15,55 +15,23 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                         {{#each alerts}}
-                            <div class="alert alert-warning" role="alert">
-                                {{this.msg}}
-                            </div>
-                        {{/each}}
-
-                        {{#if editSupplier._id}}
-                            <form method="post" action="/suppliers/{{editSupplier._id}}?_method=PUT">
-                        {{else}}
-                            <form method="post" action="/suppliers/{{id}}?_method=PUT" id="updateForm">
-                        {{/if}}
-                        
+                        <form method="post" action="/suppliers/{{editSupplier._id}}?_method=PUT" id="updateForm">
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên nhà cung cấp</label>
-                            {{!-- {{#if editSupplier.name}}
-                                <input type="text" id="name" value="{{editSupplier.name}}" class="form-control" name="name">
-                            {{else}}
-                                
-                            {{/if}} --}}
                             <input type="text" id="name" value="{{editSupplier.name}}" class="form-control" name="name">
                         </div>
 
                         <div class="mb-3">
                             <label for="phone" class="form-label">Số điện thoại</label>
-                            {{!-- {{#if editSupplier.phone}}
-                                <input type="numeric" id="phone" value="{{editSupplier.phone}}" name="phone" class="form-control"
-                                    placeholder="0123456789">
-                            {{else}}
-                                
-                            {{/if}} --}}
                             <input type="numeric" id="phone" value="{{editSupplier.phone}}" name="phone" class="form-control"
                                     placeholder="0123456789">
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ</label>
-                            {{!-- {{#if editSupplier.address}}
-                                <input type="text" id="address" value="{{editSupplier.address}}" name="address" class="form-control" placeholder="hcm">
-                            {{else}}
-                                
-                            {{/if}} --}}
                             <input type="text" id="address" value="{{editSupplier.address}}" name="address" class="form-control" placeholder="hcm">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            {{!-- {{#if editSupplier.email}}
-                                <input type="email" id="email" value="{{editSupplier.email}}" name="email" class="form-control" placeholder="hcm">
-                            {{else}}
-                                
-                            {{/if}} --}}
                             <input type="email" id="email" value="{{editSupplier.email}}" name="email" class="form-control" placeholder="hcm">
                         </div>
                         <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
@@ -79,10 +47,10 @@
 <script>
     function validForm() {
         return $.ajax({
-            url : "http://localhost:3000/api/supplierUpdatevalid",
+            url : `http://localhost:3000/api/supplierUpdatevalid/{{editSupplier._id}}`,
             type : "post",
             dataType:"json",
-            data : {               
+            data : {     
                 name : $('#name').val(),
                 address : $('#address').val(),
                 phone : $('#phone').val(),
@@ -108,10 +76,10 @@
     $('#updateForm').submit(function (e){
         var isSubmit = false;
         var ajaxCall = $.ajax({
-            url : "http://localhost:3000/api/supplierUpdatevalid",
+            url : `http://localhost:3000/api/supplierUpdatevalid/{{editSupplier._id}}`,
             type : "post",
             dataType:"json",
-            data : {               
+            data : { 
                 name : $('#name').val(),
                 address : $('#address').val(),
                 phone : $('#phone').val(),
