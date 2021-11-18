@@ -24,34 +24,47 @@
                         {{#if editSupplier._id}}
                             <form method="post" action="/suppliers/{{editSupplier._id}}?_method=PUT">
                         {{else}}
-                            <form method="post" action="/suppliers/{{id}}?_method=PUT">
+                            <form method="post" action="/suppliers/{{id}}?_method=PUT" id="updateForm">
                         {{/if}}
+                        
                         <div class="mb-3">
                             <label for="name" class="form-label">Tên nhà cung cấp</label>
-                            {{#if editSupplier.name}}
+                            {{!-- {{#if editSupplier.name}}
                                 <input type="text" id="name" value="{{editSupplier.name}}" class="form-control" name="name">
                             {{else}}
-                                <input type="text" id="name" value="{{values.name}}" class="form-control" name="name">
-                            {{/if}}
+                                
+                            {{/if}} --}}
+                            <input type="text" id="name" value="{{editSupplier.name}}" class="form-control" name="name">
                         </div>
 
                         <div class="mb-3">
                             <label for="phone" class="form-label">Số điện thoại</label>
-                            {{#if editSupplier.phone}}
+                            {{!-- {{#if editSupplier.phone}}
                                 <input type="numeric" id="phone" value="{{editSupplier.phone}}" name="phone" class="form-control"
                                     placeholder="0123456789">
                             {{else}}
-                                <input type="numeric" id="phone" value="{{values.phone}}" name="phone" class="form-control"
+                                
+                            {{/if}} --}}
+                            <input type="numeric" id="phone" value="{{editSupplier.phone}}" name="phone" class="form-control"
                                     placeholder="0123456789">
-                            {{/if}}
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ</label>
-                            {{#if editSupplier.address}}
+                            {{!-- {{#if editSupplier.address}}
                                 <input type="text" id="address" value="{{editSupplier.address}}" name="address" class="form-control" placeholder="hcm">
                             {{else}}
-                                <input type="text" id="address" value="{{values.address}}" name="address" class="form-control" placeholder="hcm">
-                            {{/if}}
+                                
+                            {{/if}} --}}
+                            <input type="text" id="address" value="{{editSupplier.address}}" name="address" class="form-control" placeholder="hcm">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            {{!-- {{#if editSupplier.email}}
+                                <input type="email" id="email" value="{{editSupplier.email}}" name="email" class="form-control" placeholder="hcm">
+                            {{else}}
+                                
+                            {{/if}} --}}
+                            <input type="email" id="email" value="{{editSupplier.email}}" name="email" class="form-control" placeholder="hcm">
                         </div>
                         <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
                         </form>
@@ -63,3 +76,67 @@
     <!-- end row -->
 
 </div> <!-- container -->
+<script>
+    function validForm() {
+        return $.ajax({
+            url : "http://localhost:3000/api/supplierUpdatevalid",
+            type : "post",
+            dataType:"json",
+            data : {               
+                name : $('#name').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                email : $('#email').val()
+            },
+            success : function (result){
+                if(result.errors.length == 0){
+                    alert('ko lỗi');
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+    }
+    $('#updateForm').submit(function (e){
+        var isSubmit = false;
+        var ajaxCall = $.ajax({
+            url : "http://localhost:3000/api/supplierUpdatevalid",
+            type : "post",
+            dataType:"json",
+            data : {               
+                name : $('#name').val(),
+                address : $('#address').val(),
+                phone : $('#phone').val(),
+                email : $('#email').val()
+            },
+            success : function (result){
+                if(result.errors.length == 0){                   
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+        ajaxCall.done(function(data) {           
+            if (isSubmit){
+                $('#updateForm').submit();       
+            }
+        }); 
+        return false;   
+    });
+</script>
