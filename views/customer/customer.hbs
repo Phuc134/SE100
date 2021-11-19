@@ -32,13 +32,13 @@
                             khách hàng
                         </div>
                         <div class="col-sm-9" style="float: right;">
-                            <input id="search" type="search" placeholder="Search" class="form-control"
+                            <input id="search" type="search" placeholder="Tìm kiếm" class="form-control"
                                 style="width: auto;float: right; ">
                         </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-centered table-striped dt-responsive nowrap w-100"
-                            id="products-datatable">
+                            id="customers-datatable">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -144,4 +144,20 @@
     {{#if isDeleted}}
         swal("Thành công!", "Bạn đã xóa khách hàng thành công!", "success");
     {{/if}}
+</script>
+
+<script>
+    $(document).ready(function (){
+        $('#search').on('keyup', function () {
+
+            var value = $('#search').val().toLowerCase();
+            var table = document.getElementById('customers-datatable')
+            console.log(value);
+
+            $("#customers-datatable tbody tr").filter(function() {
+	    	    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    
 </script>
