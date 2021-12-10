@@ -1,8 +1,9 @@
-var Product = require('../models/product');
 var upload = require('../middleware/upload');
 const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
 const multer = require('multer');
+var Product = require('../models/product');
+
 const typeproduct = require('../models/typeproduct');
 class productController {
     //[GET]
