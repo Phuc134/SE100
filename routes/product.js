@@ -3,7 +3,19 @@ const router = express.Router();
 const productController = require('../controllers/product');
 const typeproductController = require('../controllers/typeproduct');
 const upload= require('../middleware/upload');
-router.get('/', productController.index);
+const jwt = require('jsonwebtoken');
+
+router.get('/',(req,res,next) => {
+    try{
+        var token = req.cookies.token
+        var ketqua = jwt.verify(token, 'mk')
+        if(ketqua){
+            next()
+        }
+    }catch(error){
+        return res.redirect('/login');
+    }
+}, productController.index);
 router.get('/edit/:id',productController.edit);
 router.get('/deletetype/:id',typeproductController.delete);
 

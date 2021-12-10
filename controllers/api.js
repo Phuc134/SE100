@@ -8,6 +8,12 @@ class apiController {
         const result = validationResult(req);      
         res.json(result);
     }
+
+    //[POST] validLogin
+    valid_login(req,res){
+        const result = validationResult(req);      
+        res.json(result);
+    }
 }
 
 module.exports = new apiController;
