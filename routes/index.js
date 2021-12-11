@@ -1,5 +1,6 @@
 const customerRouter = require('./customer');
-const supplierRouter = require('./supplier')
+const supplierRouter = require('./supplier');
+const apiRouter = require('./api');
 const siteRouter = require('./site');
 const userRouter = require('./user');
 const roleRouter = require('./role');
@@ -19,6 +20,7 @@ function route (app) {
     app.use('/login', loginRouter);
     app.use('/logout', logoutRouter);
     //app.use('/product',productRouter);
+
     app.use('/', siteRouter);
     
 }

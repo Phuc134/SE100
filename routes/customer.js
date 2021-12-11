@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+//const validate = require('../validator/validator');
 const customerController = require('../controllers/customer');
 const jwt = require('jsonwebtoken');
 

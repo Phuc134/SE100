@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const apiController = require('../controllers/api');
+
 const {validator} = require('../controllers/validator/user');
 const {validatorLogin} = require('../controllers/validator/login');
 const {validatorCustomer} = require('../controllers/validator/customer');
