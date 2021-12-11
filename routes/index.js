@@ -5,7 +5,6 @@ const siteRouter = require('./site');
 const userRouter = require('./user');
 const roleRouter = require('./role');
 const orderRouter = require('./order');
-const apiRouter = require('./api');
 const productRouter = require('./product');
 const loginRouter = require('./login');
 const logoutRouter = require('./logout');
