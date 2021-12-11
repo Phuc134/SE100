@@ -14,6 +14,18 @@ class apiController {
         const result = validationResult(req);      
         res.json(result);
     }
+
+    // [POST ] valid-customer
+    valid_customer(req,res){
+        const result = validationResult(req);      
+        res.json(result);
+    }
+
+    // [POST ] valid-supplier
+    valid_supplier(req,res){
+        const result = validationResult(req);      
+        res.json(result);
+    }
 }
 
 module.exports = new apiController;
