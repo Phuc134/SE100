@@ -1,0 +1,88 @@
+<input list="mylist" id="my-input" class="form-control" style="width: 300px;" />
+<datalist id="mylist">
+	{{#each items}}
+	<option img="{{this.Image}}" value="{{this.Image}}" id="{{this._id}}">{{this.Name}}</option>
+	{{/each}}
+</datalist>
+<div class="shopping-cart">
+
+</div>
+<script>
+	$(document).ready(function () {
+		var input = document.getElementById("my-input");
+		var awesomplete = new Awesomplete(input, {
+			minChars: 1,
+			item: myItemFunc
+		})
+		document.getElementById('my-input').addEventListener('awesomplete-selectcomplete', function () {
+			var options = $('datalist')[0].options;
+			for (var i = 0; i < options.length; i++) {
+				if (options[i].value === this.value) {
+					var input = document.getElementById("my-input");
+					input.value = "";
+					$.ajax({
+						url: '/importproduct/getproduct',
+						method: 'post',
+						dataType: 'json',
+						data: { 'id': options[i].id },
+						success: function (res) {
+							let card = `<div class="item" id=${res.item._id}>
+										<div class="image">
+										<img src="assets/uploads/${res.item.Image}" alt="" />
+										</div>
+										<div class="description">
+											<span>${res.item.Name}</span>
+										</div>
+										<div class="quantity">
+										<button class="plus-btn" onclick="plus(this)" type="button" name="button">
+										<i class="dripicons-plus"></i>
+										</button>
+										<input type="text" readonly name="name" min="0" max="10" value="1">
+										<button class="minus-btn" onclick="minus(this)" type="button" name="button">
+										<i class="dripicons-minus"></i>
+										</button>
+										</div>
+										<div class="total-price">$549</div>
+										<button class="buttons"  onclick="test(this)">
+										<i class=" mdi mdi-delete-circle"></i>
+										</button>
+										</div>`
+							$('.shopping-cart').append(card);
+						}
+					})
+					break;
+				}
+			}
+		})
+		//shopping cart
+
+	});
+	function minus(e) {
+			var value = parseInt($(e).closest('div').find('input').val());
+			value = value - 1;
+			$(e).closest('div').find('input').val(value);
+		}
+	function plus(e){
+		var value = parseInt($(e).closest('div').find('input').val());
+			value = value + 1;
+			$(e).closest('div').find('input').val(value);
+	}
+	function test(e) {
+		e.closest('.item').remove();
+	}
+	function myItemFunc(text, input) {
+		return Awesomplete.$.create("li", {
+			innerHTML: createItem(text, input),
+			"aria-selected": "false"
+		});
+	}
+
+	function createItem(text, input) {
+		var img = document.createElement("img");
+		img.style.height = '80px';
+		img.style.width = '100px'
+		img.src = "assets/uploads/" + text.value;
+		var html = img.outerHTML + " " + text.label;
+		return html;
+	}
+</script>

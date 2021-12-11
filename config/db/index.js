@@ -4,15 +4,15 @@ const Permission = require('../../models/permission');
 const RoleToPermission = require('../../models/RoleToPermission');
 const User = require('../../models/user');
 const Regulation = require('../../models/regulation');
-async function InitRole(){
+async function InitRole() {
     var check = await Role.find({});
-    if (check.length == 0){
+    if (check.length == 0) {
         Role.create(
-            [{name: 'Admin'},
-            {name: 'Quản lý'},
-            {name: 'Nhân viên'}],
-            (err ,docs) =>{
-                if (err){
+            [{ name: 'Admin' },
+            { name: 'Quản lý' },
+            { name: 'Nhân viên' }],
+            (err, docs) => {
+                if (err) {
                     console.log(err);
                 }
                 console.log(docs);
@@ -20,17 +20,17 @@ async function InitRole(){
         );
         Permission.create(
             [
-                {name: 'Quản lý sản phẩm'},
-                {name: 'Quản lý khách hàng'},
-                {name: 'Quản lý nhà cung cấp'},
-                {name: 'Quản lý nhập hàng'},
-                {name: 'Quản lý nhân viên'},
-                {name: 'Quản lý bán hàng'},
-                {name: 'Quản lý quy định'},
-                {name: 'Xem báo cáo'}
+                { name: 'Quản lý sản phẩm' },
+                { name: 'Quản lý khách hàng' },
+                { name: 'Quản lý nhà cung cấp' },
+                { name: 'Quản lý nhập hàng' },
+                { name: 'Quản lý nhân viên' },
+                { name: 'Quản lý bán hàng' },
+                { name: 'Quản lý quy định' },
+                { name: 'Xem báo cáo' }
             ],
-            (err ,docs) =>{
-                if (err){
+            (err, docs) => {
+                if (err) {
                     console.log(err);
                 }
                 console.log(docs);
@@ -38,28 +38,28 @@ async function InitRole(){
         );
         RoleToPermission.create(
             [
-                { idrole: 1, idpermission: 1}, // admin
-                { idrole: 1, idpermission: 2},
-                { idrole: 1, idpermission: 3},
-                { idrole: 1, idpermission: 4},
-                { idrole: 1, idpermission: 5},
-                { idrole: 1, idpermission: 6},
-                { idrole: 1, idpermission: 7},
-                { idrole: 1, idpermission: 8}
+                { idrole: 1, idpermission: 1 }, // admin
+                { idrole: 1, idpermission: 2 },
+                { idrole: 1, idpermission: 3 },
+                { idrole: 1, idpermission: 4 },
+                { idrole: 1, idpermission: 5 },
+                { idrole: 1, idpermission: 6 },
+                { idrole: 1, idpermission: 7 },
+                { idrole: 1, idpermission: 8 }
             ],
-            (err ,docs) =>{
-                if (err){
+            (err, docs) => {
+                if (err) {
                     console.log(err);
                 }
                 console.log(docs);
             }
         )
         Regulation.create([
-            {name:'Số lượng nhập tối thiểu', value: 50},
-            {name:'Số lượng tồn tối đa', value: 400},
-            {name:'Lợi nhuận % trên sản phẩm', value:130}
-        ],(err ,docs) =>{
-            if (err){
+            { name: 'Số lượng nhập tối thiểu', value: 50 },
+            { name: 'Số lượng tồn tối đa', value: 400 },
+            { name: 'Lợi nhuận % trên sản phẩm', value: 130 }
+        ], (err, docs) => {
+            if (err) {
                 console.log(err);
             }
             console.log(docs);
@@ -69,14 +69,9 @@ async function InitRole(){
     }
 }
 
-async function connect () {
-    try {
-        await mongoose.connect('mongodb://localhost:27017/DoNoiThat');
-        console.log('connect successfully.');
-        var rs = await InitRole();   
-    } catch (error) {
-        console.log(error);
-    }
-}
+async function connect() {
 
+    const mongoose = require('mongoose');
+    mongoose.connect("mongodb+srv://phuc2510:phuc2510@cluster0.42rfw.mongodb.net/SE100?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+}
 module.exports = { connect };

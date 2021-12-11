@@ -41,5 +41,4 @@ app.use(session({
 }));
 //Route init
 route(app);
-
 app.listen(3000);

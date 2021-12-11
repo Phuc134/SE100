@@ -1,8 +1,10 @@
-var Product = require('../models/product');
 var upload = require('../middleware/upload');
 const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
 const multer = require('multer');
+var Product = require('../models/product');
+
+const typeproduct = require('../models/typeproduct');
 class productController {
     //[GET]
 
@@ -13,6 +15,7 @@ class productController {
                 console.log(err);
             }
             else {
+              
                 res.render('product/edit', { item: mongooseToObject(item) });
             }
         })
@@ -33,9 +36,22 @@ class productController {
             if (err) {
                 console.log(err);
                 res.status(500).send('An erro occurred', err);
+                
             }
             else {
-                res.render('product/product', { items: multipleMongooseToObject(items) });
+                Product.aggregate([{
+                    $lookup: {
+                        from: "typeproducts", // collection name in db
+                        localField: "idType",
+                        foreignField: "idType",
+                        as: "a"
+                    }
+                }]).exec(function(err, itemm) {
+                    typeproduct.find({},(err, items1)=>{
+                        res.render('product/product', {items1: multipleMongooseToObject(items1), items: itemm});
+                    })
+                }); 
+                
             }
         })
     }
@@ -83,10 +99,10 @@ class productController {
             }
             else {
                 var product = new Product({
-                    Name: req.body.NameProduct,
+                    Name: req.body.Name,
                     idType: req.body.idType,
                     Quantity: 0,
-                    Price: req.body.PriceProduct,
+                    Price: req.body.Price,
                     Image: req.file.filename
                 })
                 await product.save();
