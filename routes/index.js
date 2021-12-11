@@ -7,7 +7,9 @@ const orderRouter = require('./order');
 const apiRouter = require('./api');
 const productRouter = require('./product');
 const importproductRouter = require('./importproduct');
+const typeproductRouter = require('./typeproduct');
 function route (app) {
+    app.use('/typeproduct',typeproductRouter);
     app.use('/importproduct', importproductRouter);
     app.use('/product', productRouter);
     app.use('/customers', customerRouter);

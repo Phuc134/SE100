@@ -103,7 +103,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box">
-                            <h4 class="page-title">Them san pham</h4>
+                            <h4 class="page-title">Thêm sản phẩm</h4>
                         </div>
                     </div>
                 </div>
@@ -122,6 +122,7 @@
                                                     <input type="text" id="namep" class="form-control" name="Name">
                                                 </div>
                                                 <div class="mb-3">
+                                                    <label for="namep" class="form-label">Loại sản phẩm</label>
                                                     <select name="idType" id="" class="form-select">
                                                         {{#each items1}}
                                                         <option value="{{this.idType}}">{{this.displayname}}</option>
@@ -134,7 +135,14 @@
                                                     <input class="form-control" id="example-date" type="number"
                                                         name="Price">
                                                 </div>
-
+                                                <div class="mb-3">
+                                                    <label for="namep" class="form-label">Đơn vị tính</label>
+                                                    <select name="dvt" id="" class="form-select">
+                                                        {{#each items2}}
+                                                        <option value="{{this.displayname}}">{{this.displayname}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
                                                 <div class="mb-3">
                                                     <input type="file" class="custom-file-input" id="imgInp"
                                                         accept="image/*" name="productImage">
@@ -216,7 +224,8 @@
                     {{#each items1}}
                     <tr>
                         <td>{{this.displayname}}</td>
-                        <td><a href="/product/deletetype/{{this.idType}}" style="cursor: pointer;" class="action-icon deletetype1" data-id="{{this._id}}"> <i
+                        <td><a href="/product/deletetype/{{this.idType}}" style="cursor: pointer;"
+                                class="action-icon deletetype1" data-id="{{this._id}}"> <i
                                     class="mdi mdi-delete "></i></a></td>
                     </tr>
                     {{/each}}
