@@ -4,6 +4,7 @@ const handlebars  = require('express-handlebars');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+
 //const mongoose = require('mongoose');
 
 const db = require('./config/db');
@@ -11,9 +12,6 @@ const route = require('./routes');
 
 // connect to db
 db.connect();
-
-
-
 
 var app = express();
 // Template engine
@@ -33,6 +31,8 @@ app.use(
 );
 app.use(express.json());
 app.use(methodOverride('_method'));
+
+
 app.use(cookieParser());
 app.use(session({
     secret : 'secret',
@@ -41,6 +41,5 @@ app.use(session({
 }));
 //Route init
 route(app);
-
 
 app.listen(3000);

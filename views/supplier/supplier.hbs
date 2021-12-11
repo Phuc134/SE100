@@ -20,25 +20,9 @@
                                     class="mdi mdi-plus-circle me-2"></i>Thêm nhà cung cấp</a>
                         </div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-4">
-                            Hiển thị
-                            <Select class="form-select" style="width: auto;display:inline-block;">
-                                <option value="">ALL</option>
-                                <option value="">5</option>
-                                <option value="">10</option>
-                                <option value="">20</option>
-                            </Select>
-                            nhà cung cấp
-                        </div>
-                        <div class="col-sm-8" style="float: right;">
-                            <input id="search" type="search" placeholder="Search" class="form-control"
-                                style="width: auto;float: right; ">
-                        </div>
-                    </div>
                     <div class="table-responsive">
                         <table class="table table-centered table-striped dt-responsive nowrap w-100"
-                            id="products-datatable">
+                            id="basic-datatable">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -47,7 +31,7 @@
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
                                     <th>Địa chỉ</th>
-                                    <th>Last Contact</th>
+                                    <th>Tình trạng</th>
                                     <th style="width: 115px;">Hành động</th>
                                 </tr>
                             </thead>
@@ -149,21 +133,3 @@
     {{/if}}
 </script>
 
-<script>
-    var search_input = document.querySelector('#search');
-    search_input.addEventListener("keyup",function(e){
-        var search_item = e.target.value.toLowerCase();
-        var span_items = document.querySelectorAll(".table_body .name");
-
-        span_items.forEach(function(item){
-            if(item.textContent.toLocaleLowerCase().indexOf(search_item) != -1){
-                item.closest("tr").style.display = "";
-            }
-            else {
-                item.closest("tr").style.display = "none";
-            }
-        })
-
-        //console.log(span_items);
-    })
-</script>

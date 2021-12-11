@@ -17,48 +17,30 @@
                     <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="/customers/create" class="btn btn-danger mb-2"><i
-                                    class="mdi mdi-plus-circle me-2"></i> Thêm khách hàng</a>
+                                    class="mdi mdi-plus-circle me-2"></i>Thêm nhà khách hàng</a>
                         </div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-3">
-                            Hiển thị
-                            <Select class="form-select" style="width: auto;display:inline-block;">
-                                <option value="">Tất cả</option>
-                                <option value="">5</option>
-                                <option value="">10</option>
-                                <option value="">20</option>
-                            </Select>
-                            khách hàng
-                        </div>
-                        <div class="col-sm-9" style="float: right;">
-                            <input id="search" type="search" placeholder="Tìm kiếm" class="form-control"
-                                style="width: auto;float: right; ">
-                        </div>
-                    </div>
+                    
                     <div class="table-responsive">
                         <table class="table table-centered table-striped dt-responsive nowrap w-100"
-                            id="customers-datatable">
+                            id="basic-datatable">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>STT</th>
                                     <th>Tên khách hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
                                     <th>Địa chỉ</th>
-                                    <th>Trạng thái</th>
-                                    <th style="width: 115px;">Hành động</th>
+                                    <th>Last Contact</th>
+                                    <th>Hành động</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="table_body">
                                 {{#each customers}}
                                 <tr>
-                                    <td>
-                                        <input type="checkbox"/>
-                                    </td>
                                     <td>{{sum @index 1}}</td>
-                                    <td class="table-user">
+                                    <td class="table-user name">
+
                                         <a href="javascript:void(0);" class="text-body fw-semibold">{{this.name}}</a>
                                     </td>
                                     <td>
@@ -70,12 +52,14 @@
                                     <td>
                                         {{this.address}}
                                     </td>
-                                    <td>{{this.lastContact}}</td>
+                                    <td>
+                                        {{this.lastContact}}
+                                    </td>
                                     <td>
                                         <a href="customers/{{this._id}}/edit" class="action-icon"> <i
                                                 class="mdi mdi-square-edit-outline"></i></a>
                                         <a href="javascript:void(0);" class="action-icon" data-bs-toggle="modal"
-                                            data-bs-target="#delete-customer-model" data-id="{{this._id}}"> <i
+                                            data-bs-target="#delete-supplier-model" data-id="{{this._id}}"> <i
                                                 class="mdi mdi-delete"></i></a>
                                     </td>
                                 </tr>
@@ -144,20 +128,4 @@
     {{#if isDeleted}}
         swal("Thành công!", "Bạn đã xóa khách hàng thành công!", "success");
     {{/if}}
-</script>
-
-<script>
-    $(document).ready(function (){
-        $('#search').on('keyup', function () {
-
-            var value = $('#search').val().toLowerCase();
-            var table = document.getElementById('customers-datatable')
-            console.log(value);
-
-            $("#customers-datatable tbody tr").filter(function() {
-	    	    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-    
 </script>
