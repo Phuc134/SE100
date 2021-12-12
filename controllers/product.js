@@ -3,8 +3,8 @@ const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
 const multer = require('multer');
 var Product = require('../models/product');
-
 const typeproduct = require('../models/typeproduct');
+const dvt= require('../models/dvt');
 class productController {
     //[GET]
 
@@ -15,16 +15,17 @@ class productController {
                 console.log(err);
             }
             else {
-              
-                res.render('product/edit', { item: mongooseToObject(item) });
+                typeproduct.find({}, (err, item1) => {
+                    res.render('product/edit', {item: mongooseToObject(item), item1: multipleMongooseToObject(item1)})
+                });
             }
         })
     }
     //[POST]
-    delete(req,res){
+    delete(req, res) {
         let id = req.params.id;
-        Product.findOneAndDelete({"_id":id},(err, doc)=>{
-            if (err){
+        Product.findOneAndDelete({ "_id": id }, (err, doc) => {
+            if (err) {
                 console.log(err);
             }
             res.redirect('/product');
@@ -36,7 +37,6 @@ class productController {
             if (err) {
                 console.log(err);
                 res.status(500).send('An erro occurred', err);
-                
             }
             else {
                 Product.aggregate([{
@@ -46,12 +46,15 @@ class productController {
                         foreignField: "idType",
                         as: "a"
                     }
-                }]).exec(function(err, itemm) {
-                    typeproduct.find({},(err, items1)=>{
-                        res.render('product/product', {items1: multipleMongooseToObject(items1), items: itemm});
+                }]).exec(function (err, itemm) {
+                    typeproduct.find({}, (err, items1) => {
+                        dvt.find({},(err, items2)=>{
+                            res.render('product/product', { items1: multipleMongooseToObject(items1), items: itemm, items2: multipleMongooseToObject(items2)});
+
+                        })
                     })
-                }); 
-                
+                });
+
             }
         })
     }
@@ -86,7 +89,7 @@ class productController {
                 }
             }
         })
-      }
+    }
 
     //[POST]
     async create(req, res, next) {
@@ -102,6 +105,7 @@ class productController {
                     Name: req.body.Name,
                     idType: req.body.idType,
                     Quantity: 0,
+                    dvt: req.body.dvt,
                     Price: req.body.Price,
                     Image: req.file.filename
                 })

@@ -24,11 +24,12 @@
                                             <input type="text" id="namep" class="form-control" name="Name"
                                                 value="{{item.Name}}">
                                         </div>
-                                         <div class="mb-3">
-                                        <select name="idType" id="" class="form-select">
-                                            <option value="0">Chair</option>
-                                            <option value="1">Table</option>
-                                        </select>
+                                        <div class="mb-3">
+                                            <select name="idType" id="" class="form-select">
+                                                {{#each item1}}
+                                                <option value="{{this.idType}}">{{this.displayname}}</option>
+                                                {{/each}}
+                                            </select>
                                         </div>
 
                                         <div class="mb-3">
@@ -36,7 +37,7 @@
                                             <input class="form-control" id="example-date" type="number" name="Price"
                                                 value="{{item.Price}}">
                                         </div>
-                                       
+
                                         <div class="mb-3">
                                             <input type="file" class="custom-file-input" id="imgInp" accept="image/*"
                                                 name="productImage">

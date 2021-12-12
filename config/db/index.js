@@ -71,7 +71,12 @@ async function InitRole() {
 
 async function connect() {
 
-    const mongoose = require('mongoose');
-    mongoose.connect("mongodb+srv://phuc2510:phuc2510@cluster0.42rfw.mongodb.net/SE100?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+    try {
+        await mongoose.connect('mongodb://localhost:27017/DoNoiThat');
+        console.log('connect successfully.')
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 module.exports = { connect };
