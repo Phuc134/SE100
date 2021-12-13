@@ -5,6 +5,7 @@ class typeproductController{
             displayname: req.body.displayname,
         })
         await type.save();
+        req.session.isTypeCreated = 'true';
         res.redirect('/product');
     }
     async delete(req,res){
@@ -13,6 +14,7 @@ class typeproductController{
             if (err){
                 console.log(err);
             }
+            req.session.isTypeDeleted = 'true';
             res.redirect('/product');
         })
     }

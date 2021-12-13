@@ -6,6 +6,8 @@ const {validator} = require('../controllers/validator/user');
 const {validatorLogin} = require('../controllers/validator/login');
 const {validatorCustomer} = require('../controllers/validator/customer');
 const {validatorSupplier} = require('../controllers/validator/supplier');
+const {validatorTypeproduct} = require('../controllers/validator/typeproduct');
+const {validatorProduct} = require('../controllers/validator/product');
 
 
 router.post('/uservalidator',  
@@ -35,5 +37,17 @@ router.post('/supplierValidator',
 router.post('/supplierUpdatevalid/:id',
     validatorSupplier.validateUpdateSupplier(),
     apiController.valid_customer)
+
+router.post('/typeproductValidator',
+    validatorTypeproduct.validateAddTypeProduct(),
+    apiController.valid_typeproduct)
+
+router.post('/productValidator',
+    validatorProduct.validateAddProduct(),
+    apiController.valid_product)
+
+router.post('/productValidator/:id',
+    validatorProduct.validateUpdateProduct(),
+    apiController.valid_product)
 
 module.exports = router;
