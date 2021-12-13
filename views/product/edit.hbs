@@ -25,7 +25,9 @@
                                                 value="{{item.Name}}">
                                         </div>
                                         <div class="mb-3">
-                                            <select name="idType" id="" class="form-select">
+                                            <label for="namep" class="form-label">loại sản phẩm</label>
+
+                                            <select name="idType" id="" class="form-select" value="{{this.a.displayname}}">
                                                 {{#each item1}}
                                                 <option value="{{this.idType}}">{{this.displayname}}</option>
                                                 {{/each}}
@@ -36,6 +38,15 @@
                                             <label for="example-date" class="form-label">Price</label>
                                             <input class="form-control" id="example-date" type="number" name="Price"
                                                 value="{{item.Price}}">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="namep" class="form-label">Đơn vị tính</label>
+                                            <select name="dvt" id="" class="form-select" value="{{this.dvt}}">
+                                                {{#each items2}}
+                                                <option value="{{this.displayname}}">{{this.displayname}}</option>
+                                                {{/each}}
+                                            </select>
                                         </div>
 
                                         <div class="mb-3">

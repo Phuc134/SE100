@@ -16,7 +16,10 @@ class productController {
             }
             else {
                 typeproduct.find({}, (err, item1) => {
-                    res.render('product/edit', {item: mongooseToObject(item), item1: multipleMongooseToObject(item1)})
+                    dvt.find({},(err, items2)=>{
+                        res.render('product/edit', {item: mongooseToObject(item), item1: multipleMongooseToObject(item1), items2: multipleMongooseToObject(items2)})
+
+                    })
                 });
             }
         })
@@ -74,6 +77,7 @@ class productController {
                         data.Price = req.body.Price;
                         data.Image = req.file.filename;
                         data.idType = req.body.idType;
+                        data.dvt= req.body.dvt;
                         await data.save();
                         res.redirect('/product');
                     })
@@ -83,6 +87,7 @@ class productController {
                         data.Name = req.body.Name;
                         data.idType = req.body.idType;
                         data.Price = req.body.Price;
+                        data.dvt= req.body.dvt;
                         await data.save();
                         res.redirect('/product');
                     })
