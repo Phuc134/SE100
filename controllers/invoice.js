@@ -9,13 +9,15 @@ class invoiceController {
     async index(req, res) {
         var id = req.params.id;
         var a = await invoice.findOne({ "idInvoice": id });
-        var items = await orderdetail.find({ "idOrder": a.idOrder }).lean();
+        var items = await orderdetail.find({ "idOrder": a.idOrder });
         var data;
+        var cc;
         var listdata=[];
         await items.forEach(async item => {
-            var cc=await product.findOne({"_id": item.idProduct});
+            var id= item.idProduct;
+            cc=await product.find({"_id": id});
             data = {
-                idProduct: cc.Name,
+                idProduct: cc[0].Name,
                 unitPrice: item.unitPrice,
                 quantity: item.quantity,
                 unitDiscount: item.unitDiscount,

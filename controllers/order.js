@@ -52,12 +52,12 @@ class OrderController {
 
     // [POST] /oders/orderandpay
     async OrderAndPay(req,res,next){
-        var data;
         var items = req.body.order_details;
         var order = await Order.create({
             nameCustomer: req.body.idCustomer,
             isPay: true,
         });
+        console.log(items);
         var invoice_data = {
             idOrder: order.idOrder,
             total : req.body.totalCart,
@@ -67,7 +67,7 @@ class OrderController {
             nameCustomer: req.body.idCustomer,
         }
         await items.forEach( async (item) =>{
-            data = {
+            let data = {
                 idOrder: order.idOrder,
                 idProduct: item.id,
                 quantity: item.quantity,

@@ -57,7 +57,6 @@ class ImportController {
 
     // [POST] /import/store 
     async Store(req,res,next){
-        var data;
         var items = req.body.order_details;
 
         var import_data = {
@@ -70,7 +69,7 @@ class ImportController {
         var import_doc = await Import.create(import_data);
 
         await items.forEach( async (item) =>{
-            data = {
+           let  data = {
                 idImport: import_doc.idImport,
                 idProduct: item.id,
                 quantity: item.quantity,

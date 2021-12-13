@@ -522,6 +522,7 @@
             totalDiscount: totalDiscount,
             totalPayment: totalPayment,
         };
+        console.log(json);
         axios({
             method: 'POST',
             url: 'http://localhost:3000/orders/orderandpay',
