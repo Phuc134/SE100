@@ -11,7 +11,9 @@ const typeproductRouter = require('./typeproduct');
 const importRouter = require('./import');
 const loginRouter = require('./login');
 const logoutRouter = require('./logout');
+const reportRouter = require('./report');
 function route (app) {
+    app.use('/report', reportRouter);
     app.use('/typeproduct',typeproductRouter);
     app.use('/importproduct', importproductRouter); // *xoa
     app.use('/import', importRouter);
