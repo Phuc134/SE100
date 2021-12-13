@@ -290,7 +290,7 @@
             data[i].totalEND = data[i].total - (data[i].discount * data[i].quantity);
 
             totalCart = parseInt(totalCart) + parseInt(data[i].total);
-            totalQuantity += data[i].quantity;
+            totalQuantity = parseInt(totalQuantity) + parseInt(data[i].quantity) ;
             totalDiscount += data[i].discount * data[i].quantity;
             totalPayment += data[i].totalEND;
         }
