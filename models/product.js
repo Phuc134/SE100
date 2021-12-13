@@ -5,5 +5,6 @@ var product = new mongoose.Schema({
     Image: String,
     Price: Number,
     Quantity: Number,
+    dvt:String,
 })
 module.exports = new mongoose.model('product',product);

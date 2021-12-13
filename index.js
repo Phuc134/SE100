@@ -39,7 +39,10 @@ app.use(session({
     resave : true,
     saveUninitialized : true
 }));
+//
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 //Route init
 route(app);
-
 app.listen(3000);

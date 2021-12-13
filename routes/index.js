@@ -6,9 +6,15 @@ const userRouter = require('./user');
 const roleRouter = require('./role');
 const orderRouter = require('./order');
 const productRouter = require('./product');
+const importproductRouter = require('./importproduct'); //*xoa
+const typeproductRouter = require('./typeproduct');
+const importRouter = require('./import');
 const loginRouter = require('./login');
 const logoutRouter = require('./logout');
 function route (app) {
+    app.use('/typeproduct',typeproductRouter);
+    app.use('/importproduct', importproductRouter); // *xoa
+    app.use('/import', importRouter);
     app.use('/product', productRouter);
     app.use('/customers', customerRouter);
     app.use('/users', userRouter);

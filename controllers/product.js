@@ -1,9 +1,10 @@
-var Product = require('../models/product');
 var upload = require('../middleware/upload');
 const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
 const multer = require('multer');
+var Product = require('../models/product');
 const typeproduct = require('../models/typeproduct');
+const dvt= require('../models/dvt');
 class productController {
     //[GET]
     async edit(req, res, next) {
@@ -32,10 +33,10 @@ class productController {
         })
     }
     //[POST]
-    delete(req,res){
+    delete(req, res) {
         let id = req.params.id;
-        Product.findOneAndDelete({"_id":id},(err, doc)=>{
-            if (err){
+        Product.findOneAndDelete({ "_id": id }, (err, doc) => {
+            if (err) {
                 console.log(err);
             }
             req.session.isProductDeleted = 'true';
@@ -48,7 +49,6 @@ class productController {
             if (err) {
                 console.log(err);
                 res.status(500).send('An erro occurred', err);
-                
             }
             else {
                 Product.aggregate([{
@@ -74,8 +74,8 @@ class productController {
                         delete req.session.isProductCreated
                         delete req.session.isProductUpdated
                     })
-                }); 
-                
+                });
+
             }
         })
     }
@@ -112,7 +112,7 @@ class productController {
                 }
             }
         })
-      }
+    }
 
     //[POST]
     async create(req, res, next) {
@@ -128,6 +128,7 @@ class productController {
                     Name: req.body.Name,
                     idType: req.body.idType,
                     Quantity: 0,
+                    dvt: req.body.dvt,
                     Price: req.body.Price,
                     Image: req.file.filename
                 })

@@ -15,7 +15,7 @@
                                                 
                                                 <div class="row mb-2">
                                                     <div class="col-sm-4">
-                                                        <a href="" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i>Thêm mới</a>
+                                                        <a href="/orders/pos" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i>Thêm mới</a>
                                                     </div>
                                                     <div class="col-sm-8">                                             
                                                     </div><!-- end col-->
@@ -41,6 +41,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {{#each orders_isnotpay}}
                                                     <tr>
                                                         <td>
                                                             <div class="form-check">
@@ -48,28 +49,52 @@
                                                                 <label class="form-check-label" for="customCheck2">&nbsp;</label>
                                                             </div>
                                                         </td>
-                                                        <td><a href="apps-ecommerce-orders-details.html" class="text-body fw-bold">#BM9708</a> </td>
+                                                        <td class="text-body fw-bold">{{this.idOrder}}</td>
                                                         <td>
-                                                            August 05 2018 <small class="text-muted">10:29 PM</small>
+                                                            {{this.createAt}}
                                                         </td>
                                                         <td>
-                                                            <h5><span class="badge badge-success-lighten"><i class="mdi mdi-coin"></i> Paid</span></h5>
+                                                            Minh
                                                         </td>
                                                         <td>
-                                                            $176.41
+                                                            {{this.idCustomer}}
                                                         </td>
                                                         <td>
-                                                            23
+                                                            ...
                                                         </td>
                                                         <td>
-                                                            <h5><span class="badge badge-info-lighten">23</span></h5>
+                                                            ...
                                                         </td>
                                                         <td>                                           
                                                             <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>                                 
+                                                            <a href="javascript:void(0);" class="action-icon"
+                                                                data-id="{{this.idOrder}}"
+                                                                data-bs-toggle="modal" data-bs-target="#danger-header-modal"
+                                                            > <i class="mdi mdi-delete"></i></a>                                 
                                                         </td>
-                                                    </tr>                                                                                                                  
+                                                    </tr>       
+                                                {{/each}}                                                                                             
                                                 </tbody>
+                                                <div id="danger-header-modal" class="modal fade" tabindex="-1" aria-labelledby="danger-header-modalLabel" style="display: none;" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header modal-colored-header bg-danger">
+                                                                <h4 class="modal-title" id="danger-header-modalLabel">Xóa phiếu mua hàng ?</h4>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <h5 class="mt-0">Bạn muốn phiếu mua hàng</h5>                                           
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                                                                <button id="btnDelete" type="button" class="btn btn-danger">Xác nhận</button>
+                                                            </div>
+                                                        </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                                </div>
+                                                <form method="POST" id="formDeleteOrder">
+
+                                                </form>   
                                             </table>
                                         </div>
                                                 
@@ -104,16 +129,17 @@
                                                                 <label class="form-check-label" for="customCheck1">&nbsp;</label>
                                                             </div>
                                                         </th>
-                                                        <th>Order ID</th>
+                                                        <th>Invoice ID</th>
                                                         <th>Date</th>
                                                         <th>Staff</th>
                                                         <th>Customer</th>
-                                                        <th>Total</th>   
-                                                        <th>Amount</th>                                                   
+                                                        <th>Quantity</th>   
+                                                        <th>Total</th>                                                   
                                                         <th style="width: 125px;">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {{#each orders_ispay}}
                                                     <tr>
                                                         <td>
                                                             <div class="form-check">
@@ -121,26 +147,27 @@
                                                                 <label class="form-check-label" for="customCheck2">&nbsp;</label>
                                                             </div>
                                                         </td>
-                                                        <td><a href="apps-ecommerce-orders-details.html" class="text-body fw-bold">#BM9708</a> </td>
+                                                        <td class="text-body fw-bold"> {{this.idInvoice}} </td>
                                                         <td>
-                                                            August 05 2018 <small class="text-muted">10:29 PM</small>
+                                                            {{this.createAt}}
                                                         </td>
                                                         <td>
-                                                            <h5><span class="badge badge-success-lighten"><i class="mdi mdi-coin"></i> Paid</span></h5>
+                                                            Minh
                                                         </td>
                                                         <td>
-                                                            $176.41
+                                                            null
                                                         </td>
                                                         <td>
-                                                            23
+                                                            <h5><span class="badge badge-info-lighten">{{this.quantity}}</span></h5>
                                                         </td>
                                                         <td>
-                                                            <h5><span class="badge badge-info-lighten">23</span></h5>
-                                                        </td>
+                                                            {{this.total}}
+                                                        </td>                               
                                                         <td>
                                                             <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>                                  
                                                         </td>
-                                                    </tr>                                                                                                                  
+                                                    </tr>   
+                                                    {{/each}}                                                                                                               
                                                 </tbody>
                                             </table>
                                         </div>
@@ -151,20 +178,20 @@
                         <!-- end row-->
 </div> <!-- container -->
 <script>
-    //document.addEventListener('DOMContentLoaded', function () { 
-    //    $.ajax({
-    //        url : "http://localhost:3000/api/user",
-    //        type : "get",
-    //        dataType:"json",
-    //        data : {
-    //             
-    //        },
-    //        success : function (result){
-    //            result.forEach(item =>{
-    //                $('#ajax-test').append(foo(item));
-    //            })
-    //          
-    //        }
-    //    });
-    //});
+    document.addEventListener('DOMContentLoaded', function () {
+        var UId;
+        var deleteForm = document.forms['formDeleteOrder'];
+        var btnDelete = document.getElementById('btnDelete');
+ 
+
+        $('#danger-header-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        UId = button.data('id');                      
+        })
+
+        btnDelete.onclick = function(){
+            deleteForm.action = '/orders/' + UId + '/delete';
+            deleteForm.submit();
+        }
+    });
 </script>

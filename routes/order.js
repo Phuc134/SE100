@@ -3,18 +3,10 @@ const router = express.Router();
 const orderController = require('../controllers/order');
 const jwt = require('jsonwebtoken');
 
+router.get('/pos', orderController.pos);
+router.get('/', orderController.index);
 
-router.get('/',(req,res,next) => {
-    try{
-        var token = req.cookies.token
-        var ketqua = jwt.verify(token, 'mk')
-        if(ketqua){
-            next()
-        }
-    }catch(error){
-        return res.redirect('/login');
-    }
-}, orderController.index);
-
-
+router.post('/:id/delete', orderController.deleteOrder);
+router.post('/orderandpay', orderController.OrderAndPay);
+router.post('/order', orderController.Order);
 module.exports = router;

@@ -9,18 +9,20 @@
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
     <meta content="Coderthemes" name="author">
     <!-- App favicon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" integrity="sha512-JreNkqx4723Zhvmy8TtRDue2ZbPrPIzJSjK84o3KUsjA/eKuOW3bhea06M8urMlsFS3Yj+9m3OudzqJDrk3yOQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js" integrity="sha512-HcBl0GSJvt4Qecm4srHapirUx0HJDi2zYXm6KUKNNUGdTIN9cBwakVZHWmRVj4MKgy1AChqhWGYcMDbRKgO0zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-
     <!-- third party css -->
     <link href="assets/css/vendor/dataTables.bootstrap5.css" rel="stylesheet" type="text/css">
     <link href="assets/css/vendor/responsive.bootstrap5.css" rel="stylesheet" type="text/css">
     <link href="assets/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css">
     <link href="assets/css/vendor/dataTables.bootstrap5.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/vendor/responsive.bootstrap5.css" rel="stylesheet" type="text/css" />
-
     <!-- third party css end -->
     <!-- Jquery-->
     <!-- jQuery library -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -69,6 +71,12 @@
                         </a>
                     </li>
                     <li class="side-nav-item">
+                        <a href="/import" class="side-nav-link">
+                            <i class="uil-calender"></i>
+                            <span> Nhập hàng </span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
                         <a href="/orders" class="side-nav-link">
                             <i class=" uil-shopping-trolley"></i>
                             <span> Bán hàng </span>
@@ -97,7 +105,7 @@
                                 </li>
                             </ul>
                         </div>
-                     <li class="side-nav-item">
+                    <li class="side-nav-item">
                         <a href="/suppliers" class="side-nav-link">
                             <i class="uil-sitemap"></i>
                             <span> Nhà cung cấp </span>
@@ -181,6 +189,15 @@
     <script src="assets/js/pages/demo.products.js"></script>
     <script> // Datatable user
         $(document).ready(function () { "use strict"; $("#products-datatable-user").DataTable({ language: { paginate: { previous: "<i class='mdi mdi-chevron-left'>", next: "<i class='mdi mdi-chevron-right'>" }, info: "Showing users _START_ to _END_ of _TOTAL_", lengthMenu: 'Hiển thị <select class=\'form-select form-select-sm ms-1 me-1\'><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> users' }, pageLength: 10, columns: [{ orderable: !1, render: function (e, l, a, o) { return "display" === l && (e = '<div class="form-check"><input type="checkbox" class="form-check-input dt-checkboxes"><label class="form-check-label">&nbsp;</label></div>'), e }, checkboxes: { selectRow: !0, selectAllRender: '<div class="form-check"><input type="checkbox" class="form-check-input dt-checkboxes"><label class="form-check-label">&nbsp;</label></div>' } }, { orderable: !0 }, { orderable: !0 }, { orderable: !0 }, { orderable: !0 }, { orderable: !0 }, { orderable: !0 }, { orderable: !1 }], select: { style: "multi" }, order: [[5, "asc"]], drawCallback: function () { $(".dataTables_paginate > .pagination").addClass("pagination-rounded"), $("#products-datatable_length label").addClass("form-label") } }) });
+    </script>
+    <script> // load tabspanel
+        $(document).ready(function(){
+            var listProduct = document.getElementById('list-product');
+            var tabs = listProduct.getElementsByClassName('simplebar-content');
+            for( i=0; i<tabs.length; i++){
+                tabs[i].classList.add('row');          
+            }
+        });
     </script>
     <!-- end demo js-->
 </body>
