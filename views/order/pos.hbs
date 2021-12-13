@@ -189,7 +189,7 @@
         </div> <!-- end card-->
         <div class="card">
             <div class="card-body">
-                <input id="my-input" class="awesomplete" list="mylist" />
+                <p>Khách hàng: <input id="my-input" class="awesomplete" list="mylist" /></p>
                 <datalist id="mylist">
                     {{#each customer}}
                     <option id="{{this._id}}" value="{{this.name}}"></option>
@@ -217,8 +217,11 @@
                                 <div class="col-4">
                                     <!-- Simple card -->
                                     <a class="item-product" href="javascript:void(0)" style="color: #6C757D;"
-                                        data-id="{{this._id}}" data-name="{{this.Name}}" data-dvt="{{this.dvt}}"
-                                        data-price="{{this.Price}}">
+                                        data-id="{{this._id}}" 
+                                        data-name="{{this.Name}}" 
+                                        data-dvt="{{this.dvt}}"
+                                        data-price="{{this.Price}}"
+                                        data-quantity="{{this.Quantity}}">
                                         <div class="card d-block">
                                             <img class="card-img-top" src="assets/uploads/{{this.Image}}"
                                                 alt="Card image cap">
@@ -286,9 +289,9 @@
         for (let i = 0; i < data.length; i++) {
             data[i].total = data[i].unitprice * data[i].quantity;
             data[i].totalEND = data[i].total - (data[i].discount * data[i].quantity);
-
+         
             totalCart = parseInt(totalCart) + parseInt(data[i].total);
-            totalQuantity += data[i].quantity;
+            totalQuantity = parseInt(totalQuantity) + parseInt(data[i].quantity);
             totalDiscount += data[i].discount * data[i].quantity;
             totalPayment += data[i].totalEND;
         }
@@ -307,19 +310,21 @@
                                                     <br>
                                                     <small class="me-2">Đơn vị tính: ${item.dvt} </small>
                                                     <br>
+                                                    <small class="discount-text text-danger"></small>
+                                                    <br>
                                                     <small class="me-2" data-bs-toggle="collapse" href="#discount-${item.id}" role="button" aria-expanded="false" aria-controls="discount-${item.id}">
-                                                        Giảm giá <i class="uil uil-angle-down font-18"></i>
+                                                        Giảm giá <i class="uil uil-angle-down font-18"></i> 
                                                     </small>
                                                 </p>
                                             </div>
                                             <div class="col-3">
-                                                <input type="number" min="3000" value="${item.unitprice}" class="form-control unitprice" style="width: 110px;">
+                                                <input type="number" min="3000" value="${item.unitprice}" class="form-control unitprice" style="width: 110px;" disabled>
                                             </div>
                                             <div class="col-2">
                                                 <input type="number" min="1" value="${item.quantity}" class="form-control quantity" style="width: 70px;">
                                             </div>
                                             <div class="col-3">
-                                                <span>${item.total} <a href="javascript:void(0);" class="action-icon btn-del"> <i class="mdi mdi-delete"></i></a></span>
+                                                <span>${item.totalEND} <a href="javascript:void(0);" class="action-icon btn-del"> <i class="mdi mdi-delete"></i></a></span>  
                                             </div>                               
                                         </div>
                                        
@@ -329,31 +334,31 @@
                                                     <div class="row">
                                                         <div class="col-4">
                                                           <div class="list-group" id="list-tab" role="tablist">
-                                                            <a class="list-group-item list-group-item-action active" id="list-number-list" data-bs-toggle="list" href="#list-number" role="tab" aria-controls="list-number">Giá</a>
-                                                            <a class="list-group-item list-group-item-action" id="list-percent-list" data-bs-toggle="list" href="#list-percent" role="tab" aria-controls="list-percent">Phần trăm</a>                    
+                                                            <a class="list-group-item list-group-item-action active" id="list-number-list" data-bs-toggle="list" href="#list-number-${item.id}" role="tab" aria-controls="list-number">Giá</a>
+                                                            <a class="list-group-item list-group-item-action" id="list-percent-list" data-bs-toggle="list" href="#list-percent-${item.id}" role="tab" aria-controls="list-percent">Phần trăm</a>                    
                                                           </div>
                                                         </div>
                                                         <div class="col-8">
                                                           <div class="tab-content" id="nav-tabContent">
-                                                            <div class="tab-pane fade show active" id="list-number" role="tabpanel" aria-labelledby="list-number-list">
+                                                            <div class="tab-pane fade show active" id="list-number-${item.id}" role="tabpanel" aria-labelledby="list-number-list">
                                                                 <div class="row">
                                                                     <div class="col-6">
                                                                         Nhập giá tiền giảm
-                                                                        <input type="number" min="1"  max="100" value="0" class="form-control" style="width: 110px;">
+                                                                        <input type="number" value="0" class="form-control input-discount-number" style="width: 110px;">
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <button type="button" class="btn btn-info">Áp dụng</button>
+                                                                        <button type="button" class="btn btn-info btn-discount-number">Áp dụng</button>
                                                                     </div>                                                     
                                                                 </div>
                                                             </div>
-                                                            <div class="tab-pane fade" id="list-percent" role="tabpanel" aria-labelledby="list-percent-list">
+                                                            <div class="tab-pane fade" id="list-percent-${item.id}" role="tabpanel" aria-labelledby="list-percent-list">
                                                                 <div class="row">
                                                                     <div class="col-6">
                                                                         Nhập % giảm
-                                                                        <input type="number" min="1"  max="100" value="0" class="form-control" style="width: 110px;">
+                                                                        <input type="number" value="0" class="form-control input-discount-percent" style="width: 110px;">
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <button type="button" class="btn btn-info">Áp dụng</button>
+                                                                        <button type="button" class="btn btn-info btn-discount-percent">Áp dụng</button>
                                                                     </div>                                                     
                                                                 </div>
                                                             </div>                                                       
@@ -381,6 +386,12 @@
         inputQuantitys = $('.quantity');
         for (let i = 0; i < inputQuantitys.length; i++) {
             inputQuantitys[i].addEventListener('change', e => {
+                if (inputQuantitys[i].value < 1){
+                    inputQuantitys[i].value = 1;
+                }
+                if (inputQuantitys[i].value > data[i].quantityOfWarehouse){
+                    inputQuantitys[i].value = data[i].quantityOfWarehouse;
+                }
                 data[i].quantity = inputQuantitys[i].value;
                 renderItems();
             })
@@ -392,6 +403,56 @@
                 data[i].unitprice = inputUnitPrices[i].value;
                 renderItems();
             })
+        }
+        //discount 
+        var input_discount_numbers = $('.input-discount-number');
+        for (let i = 0; i < input_discount_numbers.length; i++){
+            input_discount_numbers[i].addEventListener('change', e=>{
+                if (input_discount_numbers[i].value < 0){
+                    input_discount_numbers[i].value = 0;
+                }
+                if (input_discount_numbers[i].value > data[i].unitprice){
+                    input_discount_numbers[i].value = data[i].unitprice;
+                }
+            });
+        }
+
+        var input_discount_percents = $('.input-discount-percent');
+        for (let i = 0; i < input_discount_percents.length; i++){
+            input_discount_percents[i].addEventListener('change', e=>{
+                if (input_discount_percents[i].value < 0){
+                    input_discount_percents[i].value = 0;
+                }
+                if (input_discount_percents[i].value > 100){
+                    input_discount_percents[i].value = 100;
+                }
+            });
+        }
+
+        var btn_discount_numbers = $('.btn-discount-number');
+        for (let i = 0; i < btn_discount_numbers.length; i++){
+            btn_discount_numbers[i].addEventListener('click', e=>{
+                data[i].discount = parseInt(input_discount_numbers[i].value);
+                renderItems();
+            })
+        }
+
+        var btn_discount_percents = $('.btn-discount-percent');
+        for (let i = 0; i < btn_discount_percents.length; i++){
+            btn_discount_percents[i].addEventListener('click', e=>{
+                data[i].discount = parseInt(input_discount_percents[i].value) * data[i].unitprice / 100;
+                renderItems();
+            })
+        }
+
+        var discount_texts = $('.discount-text');
+        for (let i = 0; i < discount_texts.length; i++){
+            if(data[i].discount == 0){
+
+            }
+            else{
+                discount_texts[i].textContent = "Giảm " + data[i].discount + "đ/1 sản phẩm.";
+            }
         }
     }
 
@@ -407,6 +468,7 @@
                 discount: 0, //VND
                 total: item.price,
                 totalEND: item.price,
+                quantityOfWarehouse: item.quantityOfWarehouse,
             }
             data.push(newItem);
             renderItems();
@@ -433,8 +495,14 @@
                 name: $(this).data('name'),
                 dvt: $(this).data('dvt'),
                 price: $(this).data('price'),
+                quantityOfWarehouse: $(this).data('quantity'),
             }
-            addItem(item);
+            if ($(this).data('quantity') == 0){
+                swal("Không thể thêm vào giỏ hàng!", "Số lượng trong kho : 0", "error");
+            }else{
+                addItem(item);
+            }
+            
         });
         // Load suggest
         var input = document.getElementById("my-input");

@@ -66,7 +66,7 @@ class OrderController {
             total_payment: req.body.totalPayment,
             nameCustomer: req.body.idCustomer,
         }
-        await items.forEach( item =>{
+        await items.forEach( async (item) =>{
             data = {
                 idOrder: order.idOrder,
                 idProduct: item.id,
@@ -76,6 +76,11 @@ class OrderController {
                 total: item.total,
                 total_payment: item.totalEND,
             };
+            await Product.findOneAndUpdate({_id:item.id},{
+                $inc : {
+                    Quantity : item.quantity * -1,
+                }
+            });
             Order_detail.create(data);
         });
         await Invoice.create(invoice_data);
