@@ -1,22 +1,5 @@
-<div class="container-fluid">
-
-    <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box">
-                <h4 class="page-title">Cập nhật thông tin sản phẩm</h4>
-            </div>
-        </div>
-    </div>
-    <!-- end page title -->
-
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="tab-content">
-                        <div class="tab-pane show active" id="input-types-preview">
-                            <form method="POST" action="/product/update/" enctype="multipart/form-data" id="updateproduct">
+<div class="tab-pane show active" id="input-types-preview">
+                            <form method="POST" action="/product/update/" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
@@ -25,18 +8,28 @@
                                                 value="{{item.Name}}">
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Loại sản phẩm</label>
-                                            <select name="idType" id="idType" class="form-select">
-                                                {{#each items1}}
+                                            <label for="namep" class="form-label">loại sản phẩm</label>
+
+                                            <select name="idType" id="" class="form-select" value="{{this.a.displayname}}">
+                                                {{#each item1}}
                                                 <option value="{{this.idType}}">{{this.displayname}}</option>
                                                 {{/each}}
                                             </select>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="price" class="form-label">Giá</label>
-                                            <input class="form-control" id="price" type="number" name="Price"
+                                            <label for="example-date" class="form-label">Price</label>
+                                            <input class="form-control" id="example-date" type="number" name="Price"
                                                 value="{{item.Price}}">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="namep" class="form-label">Đơn vị tính</label>
+                                            <select name="dvt" id="" class="form-select" value="{{this.dvt}}">
+                                                {{#each items2}}
+                                                <option value="{{this.displayname}}">{{this.displayname}}</option>
+                                                {{/each}}
+                                            </select>
                                         </div>
 
                                         <div class="mb-3">
@@ -70,42 +63,6 @@
             }
         </script>
     </div><!-- end row -->
-</div>
 
-{{!-- AJAX --}}
-<script>
-    $('#updateproduct').submit(function (e){
-        var isSubmit = false;
-        var ajaxCall = $.ajax({
-            url : "http://localhost:3000/api/productValidator/{{item._id}}",
-            type : "post",
-            dataType:"json",
-            data : {               
-                namep : $('#namep').val(),
-                idType : $('#idType').val(),
-                price : $('#price').val(),
-                imgInp : $('#imgInp').val()
-            },
-            success : function (result){
-                if(result.errors.length == 0){                   
-                    isSubmit = true;    
-                    return true;         
-                }
-                alert(result.errors[0].msg);
-                isSubmit = false;  
-                return false;       
-            },
-            error: function(xhr, status, error){
-                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
-                isSubmit = false;
-                return false;
-            }
-        });
-        ajaxCall.done(function(data) {           
-            if (isSubmit){
-                $('#updateproduct').submit();       
-            }
-        }); 
-        return false;   
-    });
-</script>
+
+</div>

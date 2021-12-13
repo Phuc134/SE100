@@ -14,21 +14,12 @@ class productController {
                 console.log(err);
             }
             else {
-                Product.aggregate([{
-                    $lookup: {
-                        from: "typeproducts", // collection name in db
-                        localField: "idType",
-                        foreignField: "idType",
-                        as: "a"
-                    }
-                }]).exec(function(err, itemm) {
-                    typeproduct.find({},(err, items1)=>{
-                        res.render('product/edit', {items1: multipleMongooseToObject(items1),
-                        item : mongooseToObject(item)});
+                typeproduct.find({}, (err, item1) => {
+                    dvt.find({},(err, items2)=>{
+                        res.render('product/edit', {item: mongooseToObject(item), item1: multipleMongooseToObject(item1), items2: multipleMongooseToObject(items2)})
+
                     })
-                }); 
-              
-                //res.render('product/edit', { item: mongooseToObject(item) });
+                });
             }
         })
     }
@@ -60,19 +51,22 @@ class productController {
                     }
                 }]).exec(function(err, itemm) {
                     typeproduct.find({},(err, items1)=>{
-                        res.render('product/product', {items1: multipleMongooseToObject(items1), 
-                            items: itemm,
-                            isTypeCreated : req.session.isTypeCreated,
-                            isTypeDeleted : req.session.isTypeDeleted,
-                            isProductDeleted : req.session.isProductDeleted,
-                            isProductCreated : req.session.isProductCreated,
-                            isProductUpdated : req.session.isProductUpdated
-                        });
-                        delete req.session.isTypeCreated
-                        delete req.session.isTypeCreated
-                        delete req.session.isProductDeleted
-                        delete req.session.isProductCreated
-                        delete req.session.isProductUpdated
+                        dvt.find({},(err,items2)=>{
+                            res.render('product/product', {items1: multipleMongooseToObject(items1), 
+                                items: itemm,
+                                items2: multipleMongooseToObject(items2),
+                                isTypeCreated : req.session.isTypeCreated,
+                                isTypeDeleted : req.session.isTypeDeleted,
+                                isProductDeleted : req.session.isProductDeleted,
+                                isProductCreated : req.session.isProductCreated,
+                                isProductUpdated : req.session.isProductUpdated
+                            });
+                            delete req.session.isTypeCreated
+                            delete req.session.isTypeCreated
+                            delete req.session.isProductDeleted
+                            delete req.session.isProductCreated
+                            delete req.session.isProductUpdated
+                        })
                     })
                 });
 
@@ -95,6 +89,7 @@ class productController {
                         data.Price = req.body.Price;
                         data.Image = req.file.filename;
                         data.idType = req.body.idType;
+                        data.dvt= req.body.dvt;
                         await data.save();
                         req.session.isProductUpdated = 'true';
                         res.redirect('/product');
@@ -105,6 +100,7 @@ class productController {
                         data.Name = req.body.Name;
                         data.idType = req.body.idType;
                         data.Price = req.body.Price;
+                        data.dvt= req.body.dvt;
                         await data.save();
                         req.session.isProductUpdated = 'true';
                         res.redirect('/product');
