@@ -35,6 +35,17 @@ class apiController {
         res.json(result);
     }
 
+    // [POST ] valid-typeproduct
+    valid_typeproduct(req,res){
+        const result = validationResult(req);      
+        res.json(result);
+    }
+
+    valid_product(req,res){
+        const result = validationResult(req);      
+        res.json(result);
+    }
+
 }
 
 module.exports = new apiController;

@@ -92,7 +92,7 @@
         </div> <!-- end col -->
     </div>
 
-    <form action="/product/create" method="post" enctype="multipart/form-data">
+    <form action="/product/create" method="post" enctype="multipart/form-data" id="createproduct">
         <dialog id="create" class="border border-2 rounded rounded-3">
             <div class="container-fluid">
                 <div class="modal-close js-modal-close"
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <!-- end page title -->
-
+    
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -123,24 +123,23 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Loại sản phẩm</label>
-                                                    <select name="idType" id="" class="form-select">
+                                                    <select name="idType" id="idType" class="form-select">
                                                         {{#each items1}}
                                                         <option value="{{this.idType}}">{{this.displayname}}</option>
                                                         {{/each}}
                                                     </select>
                                                 </div>
-
+    
                                                 <div class="mb-3">
-                                                    <label for="example-date" class="form-label">Giá</label>
-                                                    <input class="form-control" id="example-date" type="number"
-                                                        name="Price">
+                                                    <label for="price" class="form-label">Giá</label>
+                                                    <input class="form-control" id="price" type="number" name="Price">
                                                 </div>
-
+    
                                                 <div class="mb-3">
                                                     <input type="file" class="custom-file-input" id="imgInp"
                                                         accept="image/*" name="productImage">
                                                 </div>
-
+    
                                             </div> <!-- end col -->
                                             <div class="col-lg-6">
                                                 <img style="width: 300px; height:300px" id="blah" alt="your image" />
@@ -203,14 +202,13 @@
                     <a href="javascript:void(0);" class="btn btn-danger mb-2 js-add-typeproduct"><i
                             class="mdi mdi-plus-circle me-2"></i> Thêm </a>
                 </div>
-
             </div>
             <br>
             <table style="width: 500px;" id="basic-datatable" class="table dt-responsive nowrap w-100">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Action</th>
+                        <th>Tên loại</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -229,7 +227,7 @@
 <!--Form delete -->
 <!---->
 <!-- Form add type product-->
-<form action="/product/createtype" method="post">
+<form action="/product/createtype" method="post" id="createtype">
     <dialog id="form-add-typeproduct" class="border border-2 rounded rounded-3">
         <div class="container-fluid">
             <div class="modal-close js-modal-close-add-type"
@@ -237,8 +235,8 @@
                 <i class="mdi mdi-close"></i>
             </div>
             <div class="mb-3">
-                <label for="simpleinput" class="form-label">Text</label>
-                <input type="text" id="simpleinput" name="displayname" class="form-control">
+                <label for="displayname" class="form-label">Text</label>
+                <input type="text" id="displayname" name="displayname" class="form-control">
             </div>
             <button class="btn btn-success" style="float:left;">Lưu</button>
         </div>
@@ -301,3 +299,90 @@
     });
 </script>
 </div>
+{{!-- AJAX --}}
+<script>
+    $('#createproduct').submit(function (e){
+        var isSubmit = false;
+        var ajaxCall = $.ajax({
+            url : "http://localhost:3000/api/productValidator",
+            type : "post",
+            dataType:"json",
+            data : {               
+                namep : $('#namep').val(),
+                idType : $('#idType').val(),
+                price : $('#price').val(),
+                imgInp : $('#imgInp').val()
+            },
+            success : function (result){
+                if(result.errors.length == 0){                   
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+        ajaxCall.done(function(data) {           
+            if (isSubmit){
+                $('#createproduct').submit();       
+            }
+        }); 
+        return false;   
+    });
+    $('#createtype').submit(function (e){
+        var isSubmit = false;
+        var ajaxCall = $.ajax({
+            url : "http://localhost:3000/api/typeproductValidator",
+            type : "post",
+            dataType:"json",
+            data : {               
+                displayname : $('#displayname').val(),
+            },
+            success : function (result){
+                if(result.errors.length == 0){                   
+                    isSubmit = true;    
+                    return true;         
+                }
+                alert(result.errors[0].msg);
+                isSubmit = false;  
+                return false;       
+            },
+            error: function(xhr, status, error){
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                isSubmit = false;
+                return false;
+            }
+        });
+        ajaxCall.done(function(data) {           
+            if (isSubmit){
+                $('#createtype').submit();       
+            }
+        }); 
+        return false;   
+    });
+</script>
+
+{{!-- Message --}}
+<script>
+    {{#if isTypeCreated}}
+        swal("Thành công!", "Bạn đã thêm loại sản phẩm thành công", "success");
+    {{/if}}
+    {{#if isTypeDeleted}}
+        swal("Thành công!", "Bạn đã xóa loại sản phẩm thành công", "success");
+    {{/if}}
+    {{#if isProductDeleted}}
+        swal("Thành công!", "Bạn đã xóa sản phẩm thành công", "success");
+    {{/if}}
+    {{#if isProductCreated}}
+        swal("Thành công!", "Bạn đã thêm sản phẩm thành công", "success");
+    {{/if}}
+    {{#if isProductUpdated}}
+        swal("Thành công!", "Bạn đã chỉnh sửa sản phẩm thành công", "success");
+    {{/if}}
+</script>

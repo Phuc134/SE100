@@ -59,7 +59,7 @@
                                         <a href="customers/{{this._id}}/edit" class="action-icon"> <i
                                                 class="mdi mdi-square-edit-outline"></i></a>
                                         <a href="javascript:void(0);" class="action-icon" data-bs-toggle="modal"
-                                            data-bs-target="#delete-supplier-model" data-id="{{this._id}}"> <i
+                                            data-bs-target="#delete-customer-model" data-id="{{this._id}}"> <i
                                                 class="mdi mdi-delete"></i></a>
                                     </td>
                                 </tr>
@@ -85,15 +85,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-colored-header bg-danger">
-                <h4 class="modal-title" id="danger-header-modalLabel">Delete customer</h4>
+                <h4 class="modal-title" id="danger-header-modalLabel">Xóa khách hàng</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-                Do you want to delete it?
+                Bạn có thực sự muốn xóa khách hàng này không?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button id="btn-delete-customer" type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                <button id="btn-delete-customer" type="button" class="btn btn-danger">Xóa</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
