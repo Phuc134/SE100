@@ -8,6 +8,7 @@ const Regulation = require('../models/regulation');
 const Import = require('../models/import/import');
 const Import_detail = require('../models/import/import_detail');
 const Order_detail = require('../models/pos/order_detail');
+const supplier = require('../models/supplier');
 
 
 class ImportController {
@@ -39,12 +40,16 @@ class ImportController {
             }
         );
 
-        promise.then(function(data){         
-            res.render('import/importcreate', {
-                data: data,
-                minQuantity: 50,
-                maxQuantity: 100,
-            });
+        promise.then(function(data){     
+            supplier.find({},(err,item)=>{
+                res.render('import/importcreate', {
+                    data: data,
+                    minQuantity: 50,
+                    maxQuantity: 100,
+                    supplierr: multipleMongooseToObject(item)
+                });
+            })
+            
         })  
     }
 

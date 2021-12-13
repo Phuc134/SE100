@@ -4,7 +4,7 @@ const {mongooseToObject} = require('../util/mongoose');
 //const moment = require('moment');
 const Product = require('../models/product');
 const TypeProduct = require('../models/typeproduct');
-
+const customer= require('../models/customer');
 const Order = require('../models/pos/order');
 const Order_detail = require('../models/pos/order_detail');
 const Invoice = require('../models/pos/invoice');
@@ -42,8 +42,11 @@ class OrderController {
             }
         );
 
-        promise.then(function(data){         
-            res.render('order/pos', {data: data});
+        promise.then(function(data){ 
+            customer.find({},(err, item)=>{
+                res.render('order/pos', {data: data, customer: multipleMongooseToObject(item)});
+            })
+          
         })
     }
 
