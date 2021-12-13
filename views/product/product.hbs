@@ -19,8 +19,9 @@
                                     class="mdi mdi-plus-circle me-2"></i>Thêm sản phẩm</a>
                         </div>
                         <div class="col-sm-8">
-                            <a href="/typeproduct" style="float: right;"
-                                class="btn btn-success mb-2"><i class="mdi mdi-cog-outline me-2"></i>
+
+                            <a href="http://localhost:3000/typeproduct" style="float: right;"
+                                class="btn btn-success mb-2 js-typeproduct"><i class="mdi mdi-cog-outline me-2"></i>
                                 Quản lý loại sản phẩm</a>
                         </div>
 
@@ -271,23 +272,13 @@
     const modal = document.getElementById('create');
     const a = document.querySelector('.js-add-product');
     const closee = document.querySelector('.js-modal-close');
-    const typeproduct = document.getElementById('typeproduct');
-    const b = document.querySelector('.js-typeproduct');
-    const close_type = document.querySelector('.js-modal-close-type');
-    function showtypeproduct() {
-        typeproduct.showModal();
-    }
-    function hidetypeproduct() {
-        typeproduct.close();
-    }
+   
     function show() {
         modal.showModal();
     }
     function hide() {
         modal.close();
     }
-    b.addEventListener('click', showtypeproduct);
-    close_type.addEventListener('click', hidetypeproduct);
     a.addEventListener('click', show);
     closee.addEventListener('click', hide);
 </script>

@@ -147,7 +147,7 @@
         margin-top: 2px;
     }
 
-  
+
 
     input:focus {
         outline: 0;
@@ -192,7 +192,7 @@
                 <input id="my-input" class="awesomplete" list="mylist" />
                 <datalist id="mylist">
                     {{#each customer}}
-                        <option id="{{this._id}}" value="{{this.name}}"></option>
+                    <option id="{{this._id}}" value="{{this.name}}"></option>
                     {{/each}}
                 </datalist>
                 <p>Số lượng: <span id="totalQuantity" style="float: right;">0</span></p>
@@ -255,8 +255,14 @@
 </div>
 
 
-
 <script> //load scrollbar
+    $(document).ready(function () {
+        var input = document.getElementById("my-input");
+        var awesomplete = new Awesomplete(input, {
+            minChars: 1,
+            list: "#mylist",
+        });
+    });
     var test;
     var btnDels;
     var data = [];
@@ -360,6 +366,9 @@
                                 </li>` ).join('');
         $('#cart').empty();
         $('#cart').append(HTML);
+
+
+
 
         btnDels = $('.btn-del');
         for (let i = 0; i < btnDels.length; i++) {

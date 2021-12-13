@@ -27,7 +27,7 @@ class typeproductController{
     }
     async delete_dvt(req,res){
         let id = req.params.id;
-        dvt.findOneAndDelete({"_id":id},(err, doc)=>{
+        await dvt.findOneAndDelete({"_id":id},(err, doc)=>{
             if (err){
                 console.log(err);
             }
@@ -39,7 +39,7 @@ class typeproductController{
 
     async delete(req,res){
         let id = req.params.id;
-        typeproduct.findOneAndDelete({"idType":id},(err, doc)=>{
+        await typeproduct.findOneAndDelete({"idType":id},(err, doc)=>{
             if (err){
                 console.log(err);
             }
