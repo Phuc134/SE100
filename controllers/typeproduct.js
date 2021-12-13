@@ -33,6 +33,8 @@ class typeproductController{
             }
             res.redirect('/typeproduct');
         })
+        req.session.isTypeCreated = 'true';
+        res.redirect('/product');
     }
 
     async delete(req,res){

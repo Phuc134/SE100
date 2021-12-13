@@ -1,14 +1,16 @@
 const customerRouter = require('./customer');
-const supplierRouter = require('./supplier')
+const supplierRouter = require('./supplier');
+const apiRouter = require('./api');
 const siteRouter = require('./site');
 const userRouter = require('./user');
 const roleRouter = require('./role');
 const orderRouter = require('./order');
-const apiRouter = require('./api');
 const productRouter = require('./product');
 const importproductRouter = require('./importproduct'); //*xoa
 const typeproductRouter = require('./typeproduct');
 const importRouter = require('./import');
+const loginRouter = require('./login');
+const logoutRouter = require('./logout');
 function route (app) {
     app.use('/typeproduct',typeproductRouter);
     app.use('/importproduct', importproductRouter); // *xoa
@@ -20,7 +22,10 @@ function route (app) {
     app.use('/orders', orderRouter);
     app.use('/api', apiRouter);
     app.use('/suppliers', supplierRouter);
-    app.use('/product',productRouter);
+    app.use('/login', loginRouter);
+    app.use('/logout', logoutRouter);
+    //app.use('/product',productRouter);
+
     app.use('/', siteRouter);
     
 }

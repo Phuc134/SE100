@@ -7,7 +7,6 @@ const typeproduct = require('../models/typeproduct');
 const dvt= require('../models/dvt');
 class productController {
     //[GET]
-
     async edit(req, res, next) {
         let id = req.params.id;
         Product.findOne({ _id: id }, (err, item) => {
@@ -15,9 +14,21 @@ class productController {
                 console.log(err);
             }
             else {
-                typeproduct.find({}, (err, item1) => {
-                    res.render('product/edit', {item: mongooseToObject(item), item1: multipleMongooseToObject(item1)})
-                });
+                Product.aggregate([{
+                    $lookup: {
+                        from: "typeproducts", // collection name in db
+                        localField: "idType",
+                        foreignField: "idType",
+                        as: "a"
+                    }
+                }]).exec(function(err, itemm) {
+                    typeproduct.find({},(err, items1)=>{
+                        res.render('product/edit', {items1: multipleMongooseToObject(items1),
+                        item : mongooseToObject(item)});
+                    })
+                }); 
+              
+                //res.render('product/edit', { item: mongooseToObject(item) });
             }
         })
     }
@@ -28,6 +39,7 @@ class productController {
             if (err) {
                 console.log(err);
             }
+            req.session.isProductDeleted = 'true';
             res.redirect('/product');
         })
     }
@@ -46,12 +58,21 @@ class productController {
                         foreignField: "idType",
                         as: "a"
                     }
-                }]).exec(function (err, itemm) {
-                    typeproduct.find({}, (err, items1) => {
-                        dvt.find({},(err, items2)=>{
-                            res.render('product/product', { items1: multipleMongooseToObject(items1), items: itemm, items2: multipleMongooseToObject(items2)});
-
-                        })
+                }]).exec(function(err, itemm) {
+                    typeproduct.find({},(err, items1)=>{
+                        res.render('product/product', {items1: multipleMongooseToObject(items1), 
+                            items: itemm,
+                            isTypeCreated : req.session.isTypeCreated,
+                            isTypeDeleted : req.session.isTypeDeleted,
+                            isProductDeleted : req.session.isProductDeleted,
+                            isProductCreated : req.session.isProductCreated,
+                            isProductUpdated : req.session.isProductUpdated
+                        });
+                        delete req.session.isTypeCreated
+                        delete req.session.isTypeCreated
+                        delete req.session.isProductDeleted
+                        delete req.session.isProductCreated
+                        delete req.session.isProductUpdated
                     })
                 });
 
@@ -75,6 +96,7 @@ class productController {
                         data.Image = req.file.filename;
                         data.idType = req.body.idType;
                         await data.save();
+                        req.session.isProductUpdated = 'true';
                         res.redirect('/product');
                     })
                 }
@@ -84,6 +106,7 @@ class productController {
                         data.idType = req.body.idType;
                         data.Price = req.body.Price;
                         await data.save();
+                        req.session.isProductUpdated = 'true';
                         res.redirect('/product');
                     })
                 }
@@ -112,6 +135,7 @@ class productController {
                 await product.save();
             }
         })
+        req.session.isProductCreated = 'true';
         res.redirect('/product');
     }
 }
