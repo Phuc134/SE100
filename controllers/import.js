@@ -40,13 +40,15 @@ class ImportController {
             }
         );
 
-        promise.then(function(data){     
-            supplier.find({},(err,item)=>{
+        promise.then(async function(data){     
+            var quydinhMinQuatity = await Regulation.findOne({idregulation: 1});
+            var quydinhMaxQuatity = await Regulation.findOne({idregulation: 2});
+            supplier.find({},(err,items)=>{
                 res.render('import/importcreate', {
                     data: data,
-                    minQuantity: 50,
-                    maxQuantity: 100,
-                    supplierr: multipleMongooseToObject(item)
+                    minQuantity: quydinhMinQuatity.value,
+                    maxQuantity: quydinhMaxQuatity.value,
+                    supplierr: multipleMongooseToObject(items)
                 });
             })
             
@@ -60,7 +62,7 @@ class ImportController {
 
         var import_data = {
             idSupplier: null,
-            nameSupplier: null,
+            nameSupplier:  req.body.nameSupplier,
             total : req.body.totalPayment,
             quantity: req.body.totalQuantity,           
         };

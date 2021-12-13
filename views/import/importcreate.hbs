@@ -134,26 +134,10 @@
     }
 
     .image,
-    .quantity,
     .description {
         width: 100%;
         text-align: center;
         margin: 6px 0;
-    }
-
-    .quantity {
-        padding-top: 20px;
-        margin-right: 60px;
-    }
-
-    .quantity input {
-        -webkit-appearance: none;
-        border: none;
-        text-align: center;
-        width: 32px;
-        font-size: 16px;
-        color: #43484D;
-        font-weight: 300;
     }
 
 
@@ -206,7 +190,9 @@
         </div> <!-- end card-->
         <div class="card">
             <div class="card-body">
-                <input id="my-input" class="awesomplete" list="mylist" />
+                <p>
+                    Nhà cung cấp: <input id="my-input" class="awesomplete" list="mylist" />
+                </p>
                 <datalist id="mylist">
                     {{#each supplierr}}
                     <option id="{{this._id}}" value="{{this.name}}"></option>
@@ -424,7 +410,7 @@
     // submit cart to  server 
     $('#create_import').click(function (e) {
         var json = {
-            idCustomer: null,
+            nameSupplier: $('#my-input').val(),
             order_details: data,
             totalCart: totalCart,
             totalQuantity: totalQuantity,
