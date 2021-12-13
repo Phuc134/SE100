@@ -54,14 +54,17 @@ class OrderController {
     async OrderAndPay(req,res,next){
         var data;
         var items = req.body.order_details;
-
-        var order = await Order.create({isPay: true});
+        var order = await Order.create({
+            nameCustomer: req.body.idCustomer,
+            isPay: true,
+        });
         var invoice_data = {
             idOrder: order.idOrder,
             total : req.body.totalCart,
             quantity: req.body.totalQuantity,
             discount: req.body.totalDiscount,
             total_payment: req.body.totalPayment,
+            nameCustomer: req.body.idCustomer,
         }
         await items.forEach( item =>{
             data = {

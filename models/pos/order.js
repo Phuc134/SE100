@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const OrderSchema = new Schema({
-    idCustomer: {type: Number, default: null},
+    nameCustomer: {type: String, default: null},
     phoneCustomer: {type:Number, default: null},
     createAt: {type: Date, default: Date.now()},
     isPay: {type: Boolean, default: false}, 

@@ -133,26 +133,10 @@
     }
 
     .image,
-    .quantity,
     .description {
         width: 100%;
         text-align: center;
         margin: 6px 0;
-    }
-
-    .quantity {
-        padding-top: 20px;
-        margin-right: 60px;
-    }
-
-    .quantity input {
-        -webkit-appearance: none;
-        border: none;
-        text-align: center;
-        width: 32px;
-        font-size: 16px;
-        color: #43484D;
-        font-weight: 300;
     }
 
     .minus-btn img {
@@ -215,8 +199,7 @@
                 <p>Tổng tiền : <span id="totalCart" style="float: right;">0</span></p>
                 <p>Giảm giá: <span id="totalDiscount" style="float: right;">0</span></p>
                 <p>Tiền thanh toán: <span id="totalPayment" style="float: right;">0</span></p>
-                <button id="orderandpay" class="btn btn-danger m-1" style="float: right;">Thanh toán</button>
-                <button id="order" class="btn btn-danger m-1" style="float: right;">Lưu lại</button>
+                <button id="orderandpay" class="btn btn-danger m-1" style="float: right;">Thanh toán</button>           
             </div>
         </div>
     </div> <!-- end col -->
@@ -274,13 +257,6 @@
 
 
 <script> //load scrollbar
-    $(document).ready(function () {
-        var input = document.getElementById("my-input");
-        var awesomplete = new Awesomplete(input, {
-            minChars: 1,
-            list: "#mylist",
-        });
-    })
     var test;
     var btnDels;
     var data = [];
@@ -288,7 +264,7 @@
     var totalQuantity;
     var totalDiscount;
     var totalPayment;
-
+    var name_customer;
     function remove(i) {
         data.splice(i, 1);
         renderItems();
@@ -451,12 +427,18 @@
             }
             addItem(item);
         });
-
+        // Load suggest
+        var input = document.getElementById("my-input");
+        var awesomplete = new Awesomplete(input, {
+            minChars: 1,
+            list: "#mylist",
+        });
+        //
     });
     // submit cart to  server 
     $('#orderandpay').click(function (e) {
         var json = {
-            idCustomer: null,
+            idCustomer: $('#my-input').val(),
             order_details: data,
             totalCart: totalCart,
             totalQuantity: totalQuantity,
@@ -485,7 +467,7 @@
     // submit luu lai
     $('#order').click(function (e) {
         var json = {
-            idCustomer: null,
+            idCustomer: $('#my-input').val(),
             order_details: data,
             totalCart: totalCart,
             totalQuantity: totalQuantity,

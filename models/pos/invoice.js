@@ -9,6 +9,7 @@ const Invoice = new Schema({
     total: {type:Number, default:0},
     total_payment: {type:Number, default:0},
     createAt: {type:Date, default: Date.now()},
+    nameCustomer:{type:String, default:null},
 });
 
 Invoice.plugin(AutoIncrement, {inc_field: 'idInvoice'});

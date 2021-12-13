@@ -2,106 +2,6 @@
                         <div class="row">
                             <div class="col-xxl-12">                     
                                 <!-- tasks panel -->
-                                <div class="mt-4">
-                                    <h5 class="m-0 pb-2">
-                                        <a class="text-dark" data-bs-toggle="collapse" href="#orders" role="button" aria-expanded="false" aria-controls="todayTasks">
-                                            <i class='uil uil-angle-down font-18'></i>Phiếu bán hàng <span class="text-muted">(10)</span>
-                                        </a>
-                                    </h5>
-
-                                    <div class="collapse show" id="orders">
-                                        <div class="card mb-0">
-                                            <div class="card-body">    
-                                                
-                                                <div class="row mb-2">
-                                                    <div class="col-sm-4">
-                                                        <a href="/orders/pos" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i>Thêm mới</a>
-                                                    </div>
-                                                    <div class="col-sm-8">                                             
-                                                    </div><!-- end col-->
-                                                </div>
-                                                
-                                                <div class="table-responsive">
-                                            <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable-user">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th style="width: 20px;">
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                                <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                            </div>
-                                                        </th>
-                                                        <th>Order ID</th>
-                                                        <th>Date</th>
-                                                        <th>Staff</th>
-                                                        <th>Customer</th>
-                                                        <th>Total</th>   
-                                                        <th>Amount</th>                                                   
-                                                        <th style="width: 125px;">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {{#each orders_isnotpay}}
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input" id="customCheck2">
-                                                                <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-body fw-bold">{{this.idOrder}}</td>
-                                                        <td>
-                                                            {{this.createAt}}
-                                                        </td>
-                                                        <td>
-                                                            Minh
-                                                        </td>
-                                                        <td>
-                                                            {{this.idCustomer}}
-                                                        </td>
-                                                        <td>
-                                                            ...
-                                                        </td>
-                                                        <td>
-                                                            ...
-                                                        </td>
-                                                        <td>                                           
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                            <a href="javascript:void(0);" class="action-icon"
-                                                                data-id="{{this.idOrder}}"
-                                                                data-bs-toggle="modal" data-bs-target="#danger-header-modal"
-                                                            > <i class="mdi mdi-delete"></i></a>                                 
-                                                        </td>
-                                                    </tr>       
-                                                {{/each}}                                                                                             
-                                                </tbody>
-                                                <div id="danger-header-modal" class="modal fade" tabindex="-1" aria-labelledby="danger-header-modalLabel" style="display: none;" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header modal-colored-header bg-danger">
-                                                                <h4 class="modal-title" id="danger-header-modalLabel">Xóa phiếu mua hàng ?</h4>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <h5 class="mt-0">Bạn muốn phiếu mua hàng</h5>                                           
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
-                                                                <button id="btnDelete" type="button" class="btn btn-danger">Xác nhận</button>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
-                                                </div>
-                                                <form method="POST" id="formDeleteOrder">
-
-                                                </form>   
-                                            </table>
-                                        </div>
-                                                
-                                            </div> <!-- end card-body-->
-                                        </div> <!-- end card -->
-                                    </div> <!-- end .collapse-->                           
-                                </div> <!-- end .mt-2-->
                                 
                                 <div class="page-title-box">                               
                                     <h4 class="page-title">Hóa đơn bán hàng</h4>
@@ -109,14 +9,17 @@
 
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row mb-2">                       
-                                            <div class="col-sm-12">
+                                        <div class="row mb-2">    
+                                            <div class="col-sm-6">
+                                                <a href="/orders/pos" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i>Thêm mới</a>                   
+                                            </div>    
+                                            {{!-- <div class="col-sm-6">
                                                 <div class="text-sm-end">
                                                     <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog-outline"></i></button>
                                                     <button type="button" class="btn btn-light mb-2 me-1">Import</button>
                                                     <button type="button" class="btn btn-light mb-2">Export</button>
                                                 </div>
-                                            </div><!-- end col-->
+                                            </div><!-- end col--> --}}
                                         </div>
                 
                                         <div class="table-responsive">
@@ -155,7 +58,7 @@
                                                             Minh
                                                         </td>
                                                         <td>
-                                                            null
+                                                            {{this.nameCustomer}}
                                                         </td>
                                                         <td>
                                                             <h5><span class="badge badge-info-lighten">{{this.quantity}}</span></h5>
