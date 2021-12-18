@@ -2,7 +2,7 @@ const { multipleMongooseToObject } = require("../util/mongoose");
 const { mongooseToObject } = require("../util/mongoose");
 const Role = require("../models/role");
 const Permission = require("../models/permission");
-const RoleToPermission = require("../models/RoleToPermission");
+const RoleToPermission = require("../models/roletopermission");
 const Regulation = require("../models/regulation");
 
 class RoleController {
