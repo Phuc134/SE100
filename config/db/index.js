@@ -77,7 +77,7 @@ async function connect() {
         console.log('connect successfully.')
         await InitRole();
     } catch (error) {
-        console.log(error);
+        console.log("aaaa");
     }
 
 }
