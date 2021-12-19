@@ -35,7 +35,7 @@ app.use(methodOverride('_method'));
 
 app.use(cookieParser());
 app.use(session({
-    secret : 'secret',
+    secret : process.env.SESSION_SECRET,
     resave : true,
     saveUninitialized : true
 }));

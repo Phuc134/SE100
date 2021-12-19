@@ -71,6 +71,7 @@ async function InitRole() {
 
 async function connect() {
 
+    
     try {
         await mongoose.connect('mongodb://localhost:27017/DoNoiThat');
         console.log('connect successfully.')
