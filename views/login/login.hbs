@@ -48,7 +48,7 @@
     $('#LoginForm').submit(function (e){
         var isSubmit = false;
         var ajaxCall = $.ajax({
-            url : "http://localhost:3000/api/loginvalidator",
+            url : "api/loginvalidator",
             type : "post",
             dataType:"json",
             data : {               

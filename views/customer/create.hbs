@@ -52,7 +52,7 @@
 <script>
     function validForm() {
         return $.ajax({
-            url : "http://localhost:3000/api/customerValidator",
+            url : "api/customerValidator",
             type : "post",
             dataType:"json",
             data : {               
@@ -81,7 +81,7 @@
     $('#formCreateCustomer').submit(function (e){
         var isSubmit = false;
         var ajaxCall = $.ajax({
-            url : "http://localhost:3000/api/customerValidator",
+            url : "api/customerValidator",
             type : "post",
             dataType:"json",
             data : {               

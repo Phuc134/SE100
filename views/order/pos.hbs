@@ -525,7 +525,7 @@
         console.log(json);
         axios({
             method: 'POST',
-            url: 'http://localhost:3000/orders/orderandpay',
+            url: '/orders/orderandpay',
             data: JSON.stringify(json),
             headers: {
                 'Content-Type': 'application/json',
@@ -554,7 +554,7 @@
         };
         axios({
             method: 'POST',
-            url: 'http://localhost:3000/orders/order',
+            url: '/orders/order',
             data: JSON.stringify(json),
             headers: {
                 'Content-Type': 'application/json',

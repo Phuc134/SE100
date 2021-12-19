@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-sm-8">
 
-                            <a href="http://localhost:3000/typeproduct" style="float: right;"
+                            <a href="/typeproduct" style="float: right;"
                                 class="btn btn-success mb-2 js-typeproduct"><i class="mdi mdi-cog-outline me-2"></i>
                                 Quản lý loại sản phẩm</a>
                         </div>
@@ -305,7 +305,7 @@
     $('#createproduct').submit(function (e){
         var isSubmit = false;
         var ajaxCall = $.ajax({
-            url : "http://localhost:3000/api/productValidator",
+            url : "api/productValidator",
             type : "post",
             dataType:"json",
             data : {               
@@ -339,7 +339,7 @@
     $('#createtype').submit(function (e){
         var isSubmit = false;
         var ajaxCall = $.ajax({
-            url : "http://localhost:3000/api/typeproductValidator",
+            url : "api/typeproductValidator",
             type : "post",
             dataType:"json",
             data : {               
