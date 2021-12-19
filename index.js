@@ -3,7 +3,7 @@ const path = require('path');
 const handlebars  = require('express-handlebars');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const session = require('cookie-session');
 
 //const mongoose = require('mongoose');
 
@@ -35,7 +35,7 @@ app.use(methodOverride('_method'));
 
 app.use(cookieParser());
 app.use(session({
-    secret : process.env.SESSION_SECRET,
+    secret : process.env.SESSION_SECRET || 'secret',
     resave : true,
     saveUninitialized : true
 }));
