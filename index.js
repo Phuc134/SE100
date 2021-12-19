@@ -21,9 +21,9 @@ app.engine('hbs', handlebars({
         sum: (a,b) => a+b
     }
 }));
-app.set('view engine','hbs');
-app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine','hbs');
 app.use(
     express.urlencoded({
         extended: true,
@@ -31,8 +31,6 @@ app.use(
 );
 app.use(express.json());
 app.use(methodOverride('_method'));
-
-
 app.use(cookieParser());
 app.use(session({
     secret : process.env.SESSION_SECRET || 'secret',
