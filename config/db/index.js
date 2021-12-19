@@ -71,9 +71,9 @@ async function InitRole() {
 
 async function connect() {
 
-    
+    var uri=process.env.MONGOLAB_URI || 'mongodb://localhost:27017/DoNoiThat';
     try {
-        await mongoose.connect('mongodb://localhost');
+        await mongoose.connect(uri);
         console.log('connect successfully.')
         await InitRole();
     } catch (error) {
