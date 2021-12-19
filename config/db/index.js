@@ -73,7 +73,7 @@ async function connect() {
 
     
     try {
-        await mongoose.connect('mongodb://localhost:27017/DoNoiThat');
+        await mongoose.connect('mongodb://localhost');
         console.log('connect successfully.')
         await InitRole();
     } catch (error) {
